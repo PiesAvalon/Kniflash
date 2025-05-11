@@ -13,13 +13,15 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     mygraphicsview.cpp \
-    mysence.cpp
+    mysence.cpp \
+    myview.cpp
 
 HEADERS += \
     char.h \
     mainwindow.h \
     mygraphicsview.h \
-    mysence.h
+    mysence.h \
+    myview.h
 
 FORMS += \
     mainwindow.ui

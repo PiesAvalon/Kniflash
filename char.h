@@ -3,6 +3,7 @@
 
 #include <QDebug>
 #include <QGraphicsObject>
+#include <QKeyEvent>
 #include <QMovie>
 #include "qpainter.h"
 class Character : public QGraphicsObject
@@ -35,8 +36,25 @@ public:
         painter->drawPixmap(0, 0, movie->currentPixmap());
     }
 
+    void keyPressEvent(QKeyEvent *event)
+    {
+        if (event->key() == Qt::Key_A) {
+            setPos(x() - 10, y());
+        } else if (event->key() == Qt::Key_D) {
+            setPos(x() + 10, y());
+        } else if (event->key() == Qt::Key_W) {
+            setPos(x(), y() - 10);
+        } else if (event->key() == Qt::Key_S) {
+            setPos(x(), y() + 10);
+        }
+        emit position_changed();
+    }
+
 private:
     QMovie *movie;
+
+signals:
+    void position_changed();
 };
 
 #endif // CHAR_H

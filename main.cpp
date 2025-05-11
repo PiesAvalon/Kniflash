@@ -1,8 +1,10 @@
 #include <QApplication>
 
+#include <QObject>
 #include "mainwindow.h"
 #include "mygraphicsview.h"
 #include "mysence.h"
+#include "myview.h"
 
 // int main(int argc, char *argv[]) {
 //     QApplication app(argc, argv);
@@ -38,15 +40,25 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     // 初始化游戏场景
-    MySence scene;
+    MySence* scene = new MySence();
 
-    QGraphicsView view(&scene);
-    view.resize(1080, 675);
+    MyView* view = new MyView();
+    view->setScene(scene);
+    view->resize(1080, 675);
+    //添加人物
+    Character* cha = new Character();
+    scene->addItem(cha);
+    cha->setPos(scene->width() / 2,
+                scene->height() / 2); // 初始位置在场景中心
+    cha->setFlag(QGraphicsItem::ItemIsFocusable);
+    cha->setFocus();
     // 关闭滚动条
-    view.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view->centerOn(cha);
+    QObject::connect(cha, &Character::position_changed, [=]() { view->centerOn(cha); });
 
-    view.show();
+    view->show();
 
     // 运行应用, 并以应用的返回值作为整个程序的返回值
     return app.exec();

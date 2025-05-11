@@ -16,31 +16,41 @@ public:
             // 时常使用 qDebug 输出调试信息, 是好的开发习惯
             qDebug() << "Failed to load background image!";
         }
+        const int bgSize = 1800;    // 圆形背景的直径（保持不变）
+        const int sceneSize = 3000; // 更大的场景尺寸
 
-        const int bgSize = 1800; // 圆形背景的直径
+        // 缩放背景图片（保持比例扩展）
         QPixmap scaledBg = backgroundPixmap.scaled(bgSize,
                                                    bgSize,
                                                    Qt::KeepAspectRatioByExpanding,
                                                    Qt::SmoothTransformation);
 
+        // 创建透明圆形背景
         QPixmap circularBg(bgSize, bgSize);
         circularBg.fill(Qt::transparent);
-        QPainter painter(&circularBg);
-        painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
-        painter.setClipRegion(QRegion(0, 0, bgSize, bgSize, QRegion::Ellipse));
-        painter.drawPixmap((bgSize - scaledBg.width()) / 2,
-                           (bgSize - scaledBg.height()) / 2,
-                           scaledBg);
 
-        addPixmap(circularBg);
-        setSceneRect(0, 0, bgSize, bgSize);
-        //以上是初始化背景的部分
-        qDebug() << "the bg is init";
-        //以下添加人物
-        Character* cha = new Character();
-        addItem(cha);
-        cha->setPos(width() / 2,
-                    height() / 2); // 初始位置在场景中心
+        // 绘制圆形背景
+        {
+            QPainter painter(&circularBg);
+            painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
+
+            // 设置圆形裁剪区域
+            QPainterPath path;
+            path.addEllipse(0, 0, bgSize, bgSize);
+            painter.setClipPath(path);
+
+            // 居中绘制缩放后的背景
+            painter.drawPixmap((bgSize - scaledBg.width()) / 2,
+                               (bgSize - scaledBg.height()) / 2,
+                               scaledBg);
+        }
+
+        // 将圆形背景添加到场景并居中
+        QGraphicsPixmapItem* bgItem = addPixmap(circularBg);
+        bgItem->setPos((sceneSize - bgSize) / 2, (sceneSize - bgSize) / 2); // 关键居中代码
+
+        // 设置场景大小
+        setSceneRect(0, 0, sceneSize, sceneSize);
     }
 };
 
