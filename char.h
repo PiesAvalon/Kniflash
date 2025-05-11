@@ -16,6 +16,7 @@ public:
         : QGraphicsObject(parent)
     {
         setCacheMode(QGraphicsItem::DeviceCoordinateCache);
+        setFlag(QGraphicsItem::ItemSendsGeometryChanges);
         movie = new QMovie(":/figs/capoo.gif");
         connect(movie, &QMovie::frameChanged, this, [this](int frame) {
             if (frame != -1)
@@ -45,6 +46,28 @@ public:
         });
         moveTimer->start(16); // 约60FPS
     }
+
+    QVariant itemChange(GraphicsItemChange change, const QVariant &value)
+    {
+        if (change == ItemPositionChange && scene()) {
+            QPointF newPos = value.toPointF();
+
+            // 计算到中心点(1500,1500)的距离
+            qreal dx = newPos.x() - 1420;
+            qreal dy = newPos.y() - 1420;
+            qreal distance = sqrt(dx * dx + dy * dy);
+
+            // 如果距离超过900，将位置限制在半径为900的圆上
+            if (distance > 900) {
+                qreal scale = 900 / distance;
+                QPointF center(1420, 1420);
+                newPos = center + QPointF(dx * scale, dy * scale);
+                return newPos;
+            }
+        }
+        return QGraphicsItem::itemChange(change, value);
+    }
+
     QRectF boundingRect() const override
     {
         return QRectF(0, 0, 160, 135); // 根据GIF尺寸调整
