@@ -279,14 +279,29 @@ debug/moc_char.cpp: ../../char.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qrgba64.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qimage.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qpixelformat.h \
-		D:/Qt/6.8.3/mingw_64/include/QtGui/QMovie \
-		D:/Qt/6.8.3/mingw_64/include/QtGui/qmovie.h \
-		D:/Qt/6.8.3/mingw_64/include/QtGui/qimagereader.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/QKeyEvent \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qevent.h \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/qiodevice.h \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/qurl.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qeventpoint.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qvector2d.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qvectornd.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qpointingdevice.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qinputdevice.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qscreen.h \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/QList \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/QObject \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/QRect \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/QSize \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/QSizeF \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/QTransform \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/qnativeinterface.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qscreen_platform.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qguiapplication.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qcoreapplication.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qdeadlinetimer.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qelapsedtimer.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qeventloop.h \
-		D:/Qt/6.8.3/mingw_64/include/QtCore/qnativeinterface.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qcoreapplication_platform.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qfuture.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qfutureinterface.h \
@@ -299,8 +314,14 @@ debug/moc_char.cpp: ../../char.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qrunnable.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qexception.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qpromise.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qinputmethod.h \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/qlocale.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qguiapplication_platform.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qkeysequence.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/QMovie \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qmovie.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qimagereader.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qimageiohandler.h \
-		D:/Qt/6.8.3/mingw_64/include/QtCore/qiodevice.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qplugin.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qpointer.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qjsonobject.h \
@@ -309,13 +330,14 @@ debug/moc_char.cpp: ../../char.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qcborcommon.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qdatetime.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qcalendar.h \
-		D:/Qt/6.8.3/mingw_64/include/QtCore/qlocale.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qregularexpression.h \
-		D:/Qt/6.8.3/mingw_64/include/QtCore/qurl.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/quuid.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qendian.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/q20algorithm.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qfactoryinterface.h \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/QTimer \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/qtimer.h \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/qbasictimer.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qpainter.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qtextoption.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qpen.h \
@@ -691,14 +713,29 @@ debug/char.o: ../../char.cpp ../../char.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qrgba64.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qimage.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qpixelformat.h \
-		D:/Qt/6.8.3/mingw_64/include/QtGui/QMovie \
-		D:/Qt/6.8.3/mingw_64/include/QtGui/qmovie.h \
-		D:/Qt/6.8.3/mingw_64/include/QtGui/qimagereader.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/QKeyEvent \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qevent.h \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/qiodevice.h \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/qurl.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qeventpoint.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qvector2d.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qvectornd.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qpointingdevice.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qinputdevice.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qscreen.h \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/QList \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/QObject \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/QRect \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/QSize \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/QSizeF \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/QTransform \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/qnativeinterface.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qscreen_platform.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qguiapplication.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qcoreapplication.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qdeadlinetimer.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qelapsedtimer.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qeventloop.h \
-		D:/Qt/6.8.3/mingw_64/include/QtCore/qnativeinterface.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qcoreapplication_platform.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qfuture.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qfutureinterface.h \
@@ -711,8 +748,14 @@ debug/char.o: ../../char.cpp ../../char.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qrunnable.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qexception.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qpromise.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qinputmethod.h \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/qlocale.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qguiapplication_platform.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qkeysequence.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/QMovie \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qmovie.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qimagereader.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qimageiohandler.h \
-		D:/Qt/6.8.3/mingw_64/include/QtCore/qiodevice.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qplugin.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qpointer.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qjsonobject.h \
@@ -721,13 +764,14 @@ debug/char.o: ../../char.cpp ../../char.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qcborcommon.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qdatetime.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qcalendar.h \
-		D:/Qt/6.8.3/mingw_64/include/QtCore/qlocale.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qregularexpression.h \
-		D:/Qt/6.8.3/mingw_64/include/QtCore/qurl.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/quuid.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qendian.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/q20algorithm.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qfactoryinterface.h \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/QTimer \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/qtimer.h \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/qbasictimer.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qpainter.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qtextoption.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qpen.h \
@@ -901,6 +945,7 @@ debug/main.o: ../../main.cpp D:/Qt/6.8.3/mingw_64/include/QtWidgets/QApplication
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qinputmethod.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qlocale.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qguiapplication_platform.h \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/QObject \
 		../../mainwindow.h \
 		D:/Qt/6.8.3/mingw_64/include/QtWidgets/QMainWindow \
 		D:/Qt/6.8.3/mingw_64/include/QtWidgets/qmainwindow.h \
@@ -925,7 +970,6 @@ debug/main.o: ../../main.cpp D:/Qt/6.8.3/mingw_64/include/QtWidgets/QApplication
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qinputdevice.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qscreen.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/QList \
-		D:/Qt/6.8.3/mingw_64/include/QtCore/QObject \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/QRect \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/QSize \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/QSizeF \
@@ -971,7 +1015,8 @@ debug/main.o: ../../main.cpp D:/Qt/6.8.3/mingw_64/include/QtWidgets/QApplication
 		D:/Qt/6.8.3/mingw_64/include/QtWidgets/QGraphicsScene \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/Qpainter \
 		../../char.h \
-		D:/Qt/6.8.3/mingw_64/include/QtWidgets/QGraphicsObject
+		D:/Qt/6.8.3/mingw_64/include/QtWidgets/QGraphicsObject \
+		../../myview.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\main.o ..\..\main.cpp
 
 debug/mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
@@ -1578,14 +1623,29 @@ debug/mysence.o: ../../mysence.cpp ../../mysence.h \
 		D:/Qt/6.8.3/mingw_64/include/QtWidgets/qgraphicsitem.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qvariant.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qpainterpath.h \
-		D:/Qt/6.8.3/mingw_64/include/QtGui/QMovie \
-		D:/Qt/6.8.3/mingw_64/include/QtGui/qmovie.h \
-		D:/Qt/6.8.3/mingw_64/include/QtGui/qimagereader.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/QKeyEvent \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qevent.h \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/qiodevice.h \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/qurl.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qeventpoint.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qvector2d.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qvectornd.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qpointingdevice.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qinputdevice.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qscreen.h \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/QList \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/QObject \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/QRect \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/QSize \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/QSizeF \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/QTransform \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/qnativeinterface.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qscreen_platform.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qguiapplication.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qcoreapplication.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qdeadlinetimer.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qelapsedtimer.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qeventloop.h \
-		D:/Qt/6.8.3/mingw_64/include/QtCore/qnativeinterface.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qcoreapplication_platform.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qfuture.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qfutureinterface.h \
@@ -1598,8 +1658,14 @@ debug/mysence.o: ../../mysence.cpp ../../mysence.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qrunnable.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qexception.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qpromise.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qinputmethod.h \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/qlocale.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qguiapplication_platform.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qkeysequence.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/QMovie \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qmovie.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qimagereader.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qimageiohandler.h \
-		D:/Qt/6.8.3/mingw_64/include/QtCore/qiodevice.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qplugin.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qpointer.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qjsonobject.h \
@@ -1608,12 +1674,13 @@ debug/mysence.o: ../../mysence.cpp ../../mysence.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qcborcommon.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qdatetime.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qcalendar.h \
-		D:/Qt/6.8.3/mingw_64/include/QtCore/qlocale.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qregularexpression.h \
-		D:/Qt/6.8.3/mingw_64/include/QtCore/qurl.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/quuid.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/q20algorithm.h \
-		D:/Qt/6.8.3/mingw_64/include/QtCore/qfactoryinterface.h
+		D:/Qt/6.8.3/mingw_64/include/QtCore/qfactoryinterface.h \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/QTimer \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/qtimer.h \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/qbasictimer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\mysence.o ..\..\mysence.cpp
 
 debug/myview.o: ../../myview.cpp ../../myview.h \

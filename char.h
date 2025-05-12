@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QGraphicsObject>
 #include <QKeyEvent>
+#include <QLabel>
 #include <QMovie>
 #include <QTimer>
 #include "qpainter.h"
@@ -17,13 +18,22 @@ public:
     {
         setCacheMode(QGraphicsItem::DeviceCoordinateCache);
         setFlag(QGraphicsItem::ItemSendsGeometryChanges);
+
         movie = new QMovie(":/figs/capoo.gif");
+        movie->setCacheMode(QMovie::CacheAll);
+        label = new QLabel();
+        label->setMovie(movie);
+        movie->setScaledSize(QSize(160, 135));
+        movie->start();
+        movie->setPaused(true);
         connect(movie, &QMovie::frameChanged, this, [this](int frame) {
             if (frame != -1)
                 update();
         });
-        movie->start();
-        movie->setScaledSize(QSize(160, 135));
+        connect(movie, &QMovie::finished, this, [this]() {
+            movie->jumpToFrame(0);
+            qDebug() << "finishtd";
+        });
 
         moveTimer = new QTimer(this);
         connect(moveTimer, &QTimer::timeout, [this]() {
@@ -47,7 +57,7 @@ public:
         moveTimer->start(16); // 约60FPS
     }
 
-    QVariant itemChange(GraphicsItemChange change, const QVariant &value)
+    QVariant itemChange(GraphicsItemChange change, const QVariant &value) override
     {
         if (change == ItemPositionChange && scene()) {
             QPointF newPos = value.toPointF();
@@ -79,17 +89,32 @@ public:
         painter->drawPixmap(0, 0, movie->currentPixmap());
     }
 
-    void keyPressEvent(QKeyEvent *event)
+    void keyPressEvent(QKeyEvent *event) override
     {
-        if (!pressedKeys.contains(event->key())) {
-            pressedKeys.insert(event->key());
+        if (!event->isAutoRepeat()) {
+            qDebug() << "press";
+            movie->start();
+            if (!pressedKeys.contains(event->key())) {
+                pressedKeys.insert(event->key());
+            }
         }
     }
 
-    void keyReleaseEvent(QKeyEvent *event) { pressedKeys.remove(event->key()); }
+    void keyReleaseEvent(QKeyEvent *event) override
+    {
+        if (!event->isAutoRepeat()) {
+            qDebug() << "release";
+            pressedKeys.remove(event->key());
+            if (!pressedKeys.count()) {
+                movie->setPaused(true);
+                qDebug() << "paused";
+            }
+        }
+    }
 
 private:
     QMovie *movie;
+    QLabel *label;
 
     QTimer *moveTimer;
     QSet<int> pressedKeys;
