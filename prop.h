@@ -5,58 +5,42 @@
 #include <QGraphicsObject>
 #include <QPainter>
 
+#define KNIFE 1472
+#define HEALTH 1842
+#define BOOTS 1253
+
 class Prop : public QGraphicsObject
 {
     Q_OBJECT
 
 public:
     Prop(const QString &imagePath = "",
+         int prop_class = 0,
          QSize targetSize = QSize(100, 100),
-         QGraphicsItem *parent = nullptr)
-        : QGraphicsObject(parent)
-    {
-        // 加载原始图片并立即缩放
-        QPixmap original(imagePath);
-        if (!original.isNull()) {
-            m_pixmap = new QPixmap(
-                original.scaled(targetSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-        } else {
-            qWarning() << "Failed to load image:" << imagePath;
-            m_pixmap = new QPixmap(targetSize);
-            m_pixmap->fill(Qt::transparent);
-        }
-    }
+         QGraphicsItem *parent = nullptr);
 
-    // 重写基类的纯虚函数
-    QRectF boundingRect() const override
-    {
-        return QRectF(QPointF(0, 0),
-                      m_pixmap->size()); //boundingRect由自身坐标出发做参考，而非场景坐标
-    }
+    QRectF boundingRect() const override;
     void paint(QPainter *painter,
                const QStyleOptionGraphicsItem *option,
-               QWidget *widget = nullptr) override
-    {
-        if (m_pixmap && !m_pixmap->isNull()) {
-            painter->drawPixmap(boundingRect().topLeft(), *m_pixmap);
-        }
-    }
+               QWidget *widget = nullptr) override;
 
     enum { Type = UserType + 2 };
     int type() const override { return Type; }
 
+    bool get_picked() { return picked; }
+
+    int get_id()
+    {
+        // qDebug() << m_prop_class;
+        return m_prop_class;
+    }
+
 private:
     QPixmap *m_pixmap; // 存储贴图
     bool picked = false;
+    int m_prop_class;
 public slots:
-    void handlePicked(Prop *p)
-    {
-        if (p == this && !picked) {
-            picked = true;
-            m_pixmap->fill(Qt::transparent); //透明
-            update();
-        }
-    }
+    void handlePicked(Prop *p);
 };
 
 #endif // PROP_H

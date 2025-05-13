@@ -62,10 +62,20 @@ int main(int argc, char *argv[])
 
     view->resetTransform();
 
-    Prop* p1 = new Prop(":/figs/knife.jpg");
-    scene->addItem(p1);
-    p1->setPos(1700, 1700);
-    Character::connect(scene, &MySence::propPicked, p1, &Prop::handlePicked);
+    Prop* pk1 = new Prop(":/figs/knife.jpg", KNIFE);
+    scene->addItem(pk1);
+    pk1->setPos(1700, 1700);
+    Character::connect(scene, &MySence::propPicked, pk1, &Prop::handlePicked);
+
+    Prop* ph1 = new Prop(":/figs/healt_bottle.jpg", HEALTH);
+    scene->addItem(ph1);
+    ph1->setPos(1700, 1200);
+    Character::connect(scene, &MySence::propPicked, ph1, &Prop::handlePicked);
+
+    Prop* pb1 = new Prop(":/figs/boots.jpg", BOOTS);
+    scene->addItem(pb1);
+    pb1->setPos(1100, 1100);
+    Character::connect(scene, &MySence::propPicked, pb1, &Prop::handlePicked);
 
     view->show();
 

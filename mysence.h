@@ -14,96 +14,10 @@ class MySence : public QGraphicsScene
     QTimer* timer;
 
 public:
-    MySence()
-    {
-        QPixmap backgroundPixmap(":/figs/background.jpg");
-        if (backgroundPixmap.isNull()) {
-            // 时常使用 qDebug 输出调试信息, 是好的开发习惯
-            qDebug() << "Failed to load background image!";
-        }
-        const int bgSize = 1800;    // 圆形背景的直径（保持不变）
-        const int sceneSize = 3000; // 更大的场景尺寸
-
-        // 缩放背景图片（保持比例扩展）
-        QPixmap scaledBg = backgroundPixmap.scaled(bgSize,
-                                                   bgSize,
-                                                   Qt::KeepAspectRatioByExpanding,
-                                                   Qt::SmoothTransformation);
-
-        // 创建透明圆形背景
-        QPixmap circularBg(bgSize, bgSize);
-        circularBg.fill(Qt::transparent);
-
-        // 绘制圆形背景
-        {
-            QPainter painter(&circularBg);
-            painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
-
-            // 设置圆形裁剪区域
-            QPainterPath path;
-            path.addEllipse(0, 0, bgSize, bgSize);
-            painter.setClipPath(path);
-
-            // 居中绘制缩放后的背景
-            painter.drawPixmap((bgSize - scaledBg.width()) / 2,
-                               (bgSize - scaledBg.height()) / 2,
-                               scaledBg);
-        }
-
-        // 将圆形背景添加到场景并居中
-        QGraphicsPixmapItem* bgItem = addPixmap(circularBg);
-        bgItem->setPos((sceneSize - bgSize) / 2, (sceneSize - bgSize) / 2); // 关键居中代码
-
-        // 设置场景大小
-        setSceneRect(0, 0, sceneSize, sceneSize);
-
-        timer = new QTimer(this);
-        connect(timer, &QTimer::timeout, this, &MySence::checkDistance);
-        timer->start(10); // 每10ms检测一次
-    }
-    bool areItemsClose(QGraphicsItem* item1, QGraphicsItem* item2, float threshold)
-    {
-        QPointF pos1 = item1->mapToScene(item1->boundingRect().center());
-        QPointF pos2 = item2->mapToScene(item2->boundingRect().center());
-        float dx = pos1.x() - pos2.x();
-        float dy = pos1.y() - pos2.y();
-        // qDebug() << dx * dx + dy * dy;
-        // qDebug() << threshold * threshold;
-        // qDebug() << "---------";
-        return (dx * dx + dy * dy) < (threshold * threshold);
-    }
+    MySence();
+    bool areItemsClose(QGraphicsItem* item1, QGraphicsItem* item2, float threshold);
 private slots:
-    void checkDistance()
-    {
-        // 获取场景中所有Item
-        QList<QGraphicsItem*> allItems = this->items();
-
-        // 分离出Character和Prop类对象
-        QGraphicsItem* characterItem = nullptr;
-        QList<QGraphicsItem*> propItems;
-
-        for (QGraphicsItem* item : allItems) {
-            if (item->type() == Character::Type) { // 假设Character类重写了type()
-                characterItem = item;
-            } else if (item->type() == Prop::Type) { // 假设Prop类重写了type()
-                propItems.append(item);
-            }
-        }
-
-        if (!characterItem)
-            return; // 没有Character对象
-        // 检测Character与所有Prop的距离
-        const float threshold = 50.0f; // 距离阈值
-        // qDebug() << propItems.count();
-        for (QGraphicsItem* propItem : propItems) {
-            // qDebug() << "start";
-            if (areItemsClose(characterItem, propItem, threshold)) {
-                // connect(this, &MySence::propPicked, propItem, &Prop::handlePicked);
-                //我不理解为什么这行代码无法运行
-                emit propPicked(dynamic_cast<Prop*>(propItem));
-            }
-        }
-    }
+    void checkDistance();
 signals:
     void propPicked(Prop* p);
 };
