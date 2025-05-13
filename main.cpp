@@ -5,6 +5,7 @@
 #include "mygraphicsview.h"
 #include "mysence.h"
 #include "myview.h"
+#include "prop.h"
 
 // int main(int argc, char *argv[]) {
 //     QApplication app(argc, argv);
@@ -52,11 +53,19 @@ int main(int argc, char *argv[])
                 scene->height() / 2); // 初始位置在场景中心
     cha->setFlag(QGraphicsItem::ItemIsFocusable);
     cha->setFocus();
+
     // 关闭滚动条
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->centerOn(cha);
     QObject::connect(cha, &Character::position_changed, [=]() { view->centerOn(cha); });
+
+    view->resetTransform();
+
+    Prop* p1 = new Prop(":/figs/knife.jpg");
+    scene->addItem(p1);
+    p1->setPos(1700, 1700);
+    Character::connect(scene, &MySence::propPicked, p1, &Prop::handlePicked);
 
     view->show();
 

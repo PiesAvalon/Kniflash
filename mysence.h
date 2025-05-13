@@ -2,12 +2,17 @@
 #define MYSENCE_H
 #include <QDebug>
 #include <QGraphicsScene>
+#include <QObject>
 #include <Qpainter>
 #include "char.h"
+#include "prop.h"
 
 //这个要替换main中的scene
 class MySence : public QGraphicsScene
 {
+    Q_OBJECT
+    QTimer* timer;
+
 public:
     MySence()
     {
@@ -51,7 +56,56 @@ public:
 
         // 设置场景大小
         setSceneRect(0, 0, sceneSize, sceneSize);
+
+        timer = new QTimer(this);
+        connect(timer, &QTimer::timeout, this, &MySence::checkDistance);
+        timer->start(10); // 每10ms检测一次
     }
+    bool areItemsClose(QGraphicsItem* item1, QGraphicsItem* item2, float threshold)
+    {
+        QPointF pos1 = item1->mapToScene(item1->boundingRect().center());
+        QPointF pos2 = item2->mapToScene(item2->boundingRect().center());
+        float dx = pos1.x() - pos2.x();
+        float dy = pos1.y() - pos2.y();
+        // qDebug() << dx * dx + dy * dy;
+        // qDebug() << threshold * threshold;
+        // qDebug() << "---------";
+        return (dx * dx + dy * dy) < (threshold * threshold);
+    }
+private slots:
+    void checkDistance()
+    {
+        // 获取场景中所有Item
+        QList<QGraphicsItem*> allItems = this->items();
+
+        // 分离出Character和Prop类对象
+        QGraphicsItem* characterItem = nullptr;
+        QList<QGraphicsItem*> propItems;
+
+        for (QGraphicsItem* item : allItems) {
+            if (item->type() == Character::Type) { // 假设Character类重写了type()
+                characterItem = item;
+            } else if (item->type() == Prop::Type) { // 假设Prop类重写了type()
+                propItems.append(item);
+            }
+        }
+
+        if (!characterItem)
+            return; // 没有Character对象
+        // 检测Character与所有Prop的距离
+        const float threshold = 50.0f; // 距离阈值
+        // qDebug() << propItems.count();
+        for (QGraphicsItem* propItem : propItems) {
+            // qDebug() << "start";
+            if (areItemsClose(characterItem, propItem, threshold)) {
+                // connect(this, &MySence::propPicked, propItem, &Prop::handlePicked);
+                //我不理解为什么这行代码无法运行
+                emit propPicked(dynamic_cast<Prop*>(propItem));
+            }
+        }
+    }
+signals:
+    void propPicked(Prop* p);
 };
 
 #endif // MYSENCE_H

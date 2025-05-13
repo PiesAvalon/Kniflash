@@ -92,7 +92,6 @@ public:
     void keyPressEvent(QKeyEvent *event) override
     {
         if (!event->isAutoRepeat()) {
-            qDebug() << "press";
             movie->start();
             if (!pressedKeys.contains(event->key())) {
                 pressedKeys.insert(event->key());
@@ -103,14 +102,15 @@ public:
     void keyReleaseEvent(QKeyEvent *event) override
     {
         if (!event->isAutoRepeat()) {
-            qDebug() << "release";
             pressedKeys.remove(event->key());
             if (!pressedKeys.count()) {
                 movie->setPaused(true);
-                qDebug() << "paused";
             }
         }
     }
+
+    enum { Type = UserType + 1 };
+    int type() const override { return Type; }
 
 private:
     QMovie *movie;

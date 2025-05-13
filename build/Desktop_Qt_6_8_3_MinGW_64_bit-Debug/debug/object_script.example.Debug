@@ -1,0 +1,12 @@
+debug/char.o
+debug/main.o
+debug/mainwindow.o
+debug/mygraphicsview.o
+debug/mysence.o
+debug/myview.o
+debug/prop.o
+debug/qrc_src.o
+debug/moc_char.o
+debug/moc_mainwindow.o
+debug/moc_mysence.o
+debug/moc_prop.o
