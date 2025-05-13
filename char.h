@@ -38,7 +38,12 @@ private:
     QTimer *moveTimer;
     QSet<int> pressedKeys;
 
-    int knife_num = 4;
+    QVector<QPixmap *> knifes;
+
+    int knife_num;
+
+    QTimer *m_rotateTimer; // 旋转动画定时器
+    qreal m_rotationAngle = 0;
 
 signals:
     void position_changed();

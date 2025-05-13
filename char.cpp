@@ -41,6 +41,21 @@ Character::Character(QGraphicsItem *parent)
             emit position_changed();
         }
     });
+    knife_num = 4;
+    for (int i = 0; i < knife_num; i++) {
+        QPixmap *pm = new QPixmap(":/figs/knife.jpg");
+        knifes.push_back(pm);
+    }
+
+    m_rotateTimer = new QTimer(this);
+    connect(m_rotateTimer, &QTimer::timeout, [this]() {
+        m_rotationAngle += 2.0; // 调整数值控制速度
+        if (m_rotationAngle >= 360)
+            m_rotationAngle -= 360;
+        update(); // 触发重绘
+    });
+    m_rotateTimer->start(10);
+
     moveTimer->start(16); // 约60FPS
 }
 
@@ -67,13 +82,41 @@ QVariant Character::itemChange(GraphicsItemChange change, const QVariant &value)
 
 QRectF Character::boundingRect() const
 {
-    return QRectF(0, 0, 160, 135); // 根据GIF尺寸调整
+    // return QRectF(0, 0, 160, 135); // 根据GIF尺寸调整
+    return QRectF(-170, -180, 500, 500);
 }
 
 void Character::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     painter->fillRect(boundingRect(), Qt::transparent);
     painter->drawPixmap(0, 0, movie->currentPixmap());
+
+    // int m_rotationAngle = 0;
+    // 启用抗锯齿和平滑贴图变换（网页5、网页8）
+    painter->setRenderHint(QPainter::Antialiasing);
+    painter->setRenderHint(QPainter::SmoothPixmapTransform);
+
+    // 获取角色中心点（网页3）
+    QPointF center = boundingRect().center();
+
+    // 遍历所有贴图
+    for (int i = 0; i < knifes.size(); ++i) {
+        painter->save(); // 保存当前坐标系状态
+
+        // 坐标系变换（网页3、网页8）
+        painter->translate(center.x(), center.y());                     // 移动坐标系到中心
+        painter->rotate(m_rotationAngle + (360.0 / knifes.size()) * i); // 均匀分布角度
+
+        // 计算贴图绘制位置（距离中心的半径）
+        const int radius = 150; // 环绕半径
+        QPixmap *knife = knifes[i];
+        QPointF drawPos(-knife->width() / 2, -radius - knife->height() / 2);
+
+        // 绘制贴图（网页5、网页8）
+        painter->drawPixmap(drawPos, *knife);
+
+        painter->restore(); // 恢复坐标系状态
+    }
 }
 
 void Character::keyPressEvent(QKeyEvent *event)
@@ -100,6 +143,8 @@ void Character::push_knife()
 {
     knife_num++;
     qDebug() << "knife pushed" << knife_num;
+    QPixmap *pm = new QPixmap(":/figs/knife.jpg");
+    knifes.push_back(pm);
 }
 
 void Character::pop_knife()
