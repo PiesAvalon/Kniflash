@@ -37,7 +37,7 @@ Character::Character(QGraphicsItem *parent)
         }
         if (!direction.isNull()) {
             direction /= sqrt(direction.x() * direction.x() + direction.y() * direction.y());
-            setPos(x() + 6 * direction.x(), y() + 6 * direction.y());
+            setPos(x() + speed * direction.x(), y() + speed * direction.y());
             emit position_changed();
         }
     });
@@ -57,9 +57,13 @@ Character::Character(QGraphicsItem *parent)
             m_rotationAngle -= 360;
         update(); // 触发重绘
     });
+
     m_rotateTimer->start(10);
 
     moveTimer->start(16); // 约60FPS
+
+    speed_timer = new QTimer(this);
+    connect(speed_timer, &QTimer::timeout, this, &Character::speed_finished);
 }
 
 QVariant Character::itemChange(GraphicsItemChange change, const QVariant &value)
@@ -167,6 +171,11 @@ void Character::add_health(int amount)
 void Character::picked_boots()
 {
     qDebug() << "boots picked! ";
+    speed_timer->start(7000);
+    if (!high_speed) {
+        speed *= 2;
+    }
+    high_speed = true;
 }
 
 void Character::handle_pick(int id)

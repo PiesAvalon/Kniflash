@@ -31,6 +31,12 @@ public:
     enum { Type = UserType + 1 };
     int type() const override { return Type; }
 
+    void speed_finished()
+    {
+        high_speed = false;
+        speed = speed / 2;
+    }
+
 private:
     QMovie *movie;
     QLabel *label;
@@ -44,6 +50,11 @@ private:
 
     QTimer *m_rotateTimer; // 旋转动画定时器
     qreal m_rotationAngle = 0;
+
+    int speed = 3;
+    bool high_speed = false;
+
+    QTimer *speed_timer;
 
 signals:
     void position_changed();
