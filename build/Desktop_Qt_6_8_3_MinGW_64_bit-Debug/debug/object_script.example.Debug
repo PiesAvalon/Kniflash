@@ -1,3 +1,4 @@
+debug/bush.o
 debug/char.o
 debug/main.o
 debug/mainwindow.o
@@ -5,6 +6,7 @@ debug/mygraphicsview.o
 debug/mysence.o
 debug/myview.o
 debug/prop.o
+debug/propfactory.o
 debug/qrc_src.o
 debug/moc_char.o
 debug/moc_mainwindow.o

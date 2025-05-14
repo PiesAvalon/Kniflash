@@ -6,6 +6,7 @@
 #include "mysence.h"
 #include "myview.h"
 #include "prop.h"
+#include "propfactory.h"
 
 // int main(int argc, char *argv[]) {
 //     QApplication app(argc, argv);
@@ -62,10 +63,12 @@ int main(int argc, char *argv[])
 
     view->resetTransform();
 
-    Prop* pk1 = new Prop(":/figs/knife.jpg", KNIFE);
-    scene->addItem(pk1);
-    pk1->setPos(1700, 1700);
-    Character::connect(scene, &MySence::propPicked, pk1, &Prop::handlePicked);
+    // Prop* pk1 = new Prop(":/figs/knife.jpg", KNIFE);
+    // scene->addItem(pk1);
+    // pk1->setPos(1700, 1700);
+    // Character::connect(scene, &MySence::propPicked, pk1, &Prop::handlePicked);
+
+    PropFactory* factory = new PropFactory(scene);
 
     Prop* ph1 = new Prop(":/figs/healt_bottle.jpg", HEALTH);
     scene->addItem(ph1);

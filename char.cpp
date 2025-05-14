@@ -44,6 +44,9 @@ Character::Character(QGraphicsItem *parent)
     knife_num = 4;
     for (int i = 0; i < knife_num; i++) {
         QPixmap *pm = new QPixmap(":/figs/knife.jpg");
+        if (!pm->isNull()) {
+            *pm = pm->scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        }
         knifes.push_back(pm);
     }
 
@@ -144,6 +147,9 @@ void Character::push_knife()
     knife_num++;
     qDebug() << "knife pushed" << knife_num;
     QPixmap *pm = new QPixmap(":/figs/knife.jpg");
+    if (!pm->isNull()) {
+        *pm = pm->scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    }
     knifes.push_back(pm);
 }
 
