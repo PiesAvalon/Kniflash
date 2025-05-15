@@ -41,13 +41,25 @@ Character::Character(QGraphicsItem *parent)
             emit position_changed();
         }
     });
+
+    health = 100;
+    int heart_num = health / 20;
+    for (int i = 0; i < heart_num; i++) {
+        QPixmap *ph = new QPixmap(":/figs/heart.jpg");
+        if (!ph->isNull()) {
+            // *ph = ph->scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+            hearts.push_back(ph);
+        }
+    }
+    // qDebug() << hearts.size();
+
     knife_num = 4;
     for (int i = 0; i < knife_num; i++) {
         QPixmap *pm = new QPixmap(":/figs/knife.jpg");
         if (!pm->isNull()) {
             *pm = pm->scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+            knifes.push_back(pm);
         }
-        knifes.push_back(pm);
     }
 
     m_rotateTimer = new QTimer(this);
@@ -124,8 +136,30 @@ void Character::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
 
         painter->restore(); // 恢复坐标系状态
     }
-}
 
+    // 获取图形项的有效绘制区域
+    qreal itemWidth = boundingRect().width();
+    int count = hearts.size();
+    if (count == 0)
+        return;
+
+    // 计算布局参数
+    qreal spacing = 100 / (count + 1);
+    qreal pixmapWidth = 20;
+    qreal yPos = 10; // 相对于图形项顶部的偏移
+
+    for (int i = 0; i < count; ++i) {
+        // 计算水平位置（基于图形项坐标系）
+        qreal xPos = 30 + spacing * (i + 1) - pixmapWidth / 2;
+
+        // 保持宽高比缩放
+        QPixmap scaled = hearts[i]->scaled(pixmapWidth,
+                                           pixmapWidth,
+                                           Qt::KeepAspectRatio,
+                                           Qt::SmoothTransformation);
+        painter->drawPixmap(xPos, yPos, scaled);
+    }
+}
 void Character::keyPressEvent(QKeyEvent *event)
 {
     if (!event->isAutoRepeat()) {
@@ -166,6 +200,17 @@ void Character::pop_knife()
 void Character::add_health(int amount)
 {
     qDebug() << "health add" << amount;
+    health += 20;
+    if (health >= 100) {
+        health = 100;
+    }
+    if (hearts.size() < 5) {
+        QPixmap *ph = new QPixmap(":/figs/heart.jpg");
+        if (!ph->isNull()) {
+            // *ph = ph->scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+            hearts.push_back(ph);
+        }
+    }
 }
 
 void Character::picked_boots()

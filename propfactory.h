@@ -34,7 +34,7 @@ public:
             Prop* pk1 = new Prop(":/figs/healt_bottle.jpg", HEALTH);
             scene->addItem(pk1);
 
-            QPair p = randomPos(900);
+            QPair p = randomPos(850);
             pk1->setPos(p.first, p.second);
             Character::connect(scene, &MySence::propPicked, pk1, &Prop::handlePicked);
         }
@@ -43,7 +43,7 @@ public:
             Prop* pk1 = new Prop(":/figs/boots.jpg", BOOTS);
             scene->addItem(pk1);
 
-            QPair p = randomPos(900);
+            QPair p = randomPos(850);
             pk1->setPos(p.first, p.second);
             Character::connect(scene, &MySence::propPicked, pk1, &Prop::handlePicked);
         }

@@ -42,6 +42,13 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
+    MainWindow mw;
+    mw.show();
+
+    QEventLoop loop;
+    QObject::connect(&mw, &MainWindow::evokeGameSignal, &loop, &QEventLoop::quit);
+    loop.exec();
+
     // 初始化游戏场景
     MySence* scene = new MySence();
 

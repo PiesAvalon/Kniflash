@@ -33,8 +33,10 @@ public:
 
     void speed_finished()
     {
+        if (high_speed) {
+            speed = speed / 2;
+        }
         high_speed = false;
-        speed = speed / 2;
     }
 
 private:
@@ -45,6 +47,7 @@ private:
     QSet<int> pressedKeys;
 
     QVector<QPixmap *> knifes;
+    QVector<QPixmap *> hearts;
 
     int knife_num;
 
@@ -53,6 +56,8 @@ private:
 
     int speed = 3;
     bool high_speed = false;
+
+    int health;
 
     QTimer *speed_timer;
 
