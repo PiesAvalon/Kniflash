@@ -1,6 +1,7 @@
 #include <QApplication>
 
 #include <QObject>
+#include "QMessageBox"
 #include "bush.h"
 #include "mainwindow.h"
 #include "mygraphicsview.h"
@@ -42,39 +43,61 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    MainWindow mw;
-    mw.show();
+    while (true) {
+        MainWindow mw;
+        mw.show();
 
-    QEventLoop loop;
-    QObject::connect(&mw, &MainWindow::evokeGameSignal, &loop, &QEventLoop::quit);
-    loop.exec();
+        QEventLoop loop;
+        QObject::connect(&mw, &MainWindow::evokeGameSignal, &loop, &QEventLoop::quit);
+        loop.exec();
 
-    // 初始化游戏场景
-    MySence* scene = new MySence();
+        // 初始化游戏场景
+        MySence* scene = new MySence();
 
-    MyView* view = new MyView();
-    view->setScene(scene);
-    view->resize(1080, 675);
-    //添加人物
-    Character* cha = new Character();
-    scene->addItem(cha);
-    cha->setPos(scene->width() / 2,
-                scene->height() / 2); // 初始位置在场景中心
-    cha->setFlag(QGraphicsItem::ItemIsFocusable);
-    cha->setFocus();
+        MyView* view = new MyView();
+        view->setScene(scene);
+        view->resize(1080, 675);
+        //添加人物
+        Character* cha = new Character();
+        scene->addItem(cha);
+        cha->setPos(scene->width() / 2,
+                    scene->height() / 2); // 初始位置在场景中心
+        cha->setFlag(QGraphicsItem::ItemIsFocusable);
+        cha->setFocus();
 
-    // 关闭滚动条
-    view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    view->centerOn(cha);
-    QObject::connect(cha, &Character::position_changed, [=]() { view->centerOn(cha); });
+        // 关闭滚动条
+        view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        view->centerOn(cha);
+        QObject::connect(cha, &Character::position_changed, [=]() { view->centerOn(cha); });
 
-    view->resetTransform();
+        view->resetTransform();
 
-    PropFactory* factory = new PropFactory(scene);
+        PropFactory* factory = new PropFactory(scene);
 
-    view->show();
+        view->show();
+
+        QEventLoop loop2;
+        QObject::connect(cha, &Character::Dead_signal, &loop2, &QEventLoop::quit);
+        loop2.exec();
+
+        // qDebug() << "dead in main";
+
+        view->hide();
+
+        int result = QMessageBox::question(nullptr,
+                                           "确认",
+                                           "确定要退出吗？",
+                                           QMessageBox::Yes | QMessageBox::No);
+        if (result == QMessageBox::Yes) {
+            exit(0);
+        } else {
+            continue;
+        }
+    }
 
     // 运行应用, 并以应用的返回值作为整个程序的返回值
-    return app.exec();
+
+    app.exec();
+    return 0;
 }

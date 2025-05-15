@@ -24,6 +24,7 @@ public:
     void push_knife();
     void pop_knife();
     void add_health(int amount);
+    void drop_health(int amount);
     void picked_boots();
 
     void handle_pick(int id);
@@ -63,6 +64,7 @@ private:
 
 signals:
     void position_changed();
+    void Dead_signal();
 };
 
 #endif // CHAR_H
