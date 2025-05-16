@@ -83,6 +83,12 @@ Character::Character(QGraphicsItem *parent)
 
     speed_timer = new QTimer(this);
     connect(speed_timer, &QTimer::timeout, this, &Character::speed_finished);
+
+    QPixmap *boots_lable = new QPixmap(":/figs/boots.jpg");
+    if (!boots_lable->isNull()) {
+        *boots_lable = boots_lable->scaled(50, 50, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    }
+    buff_lables.push_back(boots_lable);
 }
 
 QVariant Character::itemChange(GraphicsItemChange change, const QVariant &value)
@@ -142,6 +148,24 @@ void Character::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
         painter->drawPixmap(drawPos, *knife);
 
         painter->restore(); // 恢复坐标系状态
+
+        if (high_speed && !buff_lables.empty()) {
+            // 获取第一个QPixmap
+            QPixmap *pixmap = buff_lables.first();
+
+            // 计算中央位置
+            QRectF rect = boundingRect();
+            qreal x = rect.width() / 2 - pixmap->width() / 2 - 200;
+            qreal y = rect.height() / 2 - pixmap->height() / 2 - 200;
+
+            // 绘制QPixmap
+            painter->drawPixmap(x, y, *pixmap);
+
+            // 可选：添加半透明效果
+            painter->setOpacity(0.7); // 设置透明度
+            painter->drawPixmap(x, y, *pixmap);
+            painter->setOpacity(1.0); // 恢复透明度
+        }
     }
 
     // 获取图形项的有效绘制区域
@@ -245,7 +269,7 @@ void Character::drop_health(int amount)
 void Character::picked_boots()
 {
     // qDebug() << "boots picked! ";
-    speed_timer->start(7000);
+    speed_timer->start(5000);
     if (!high_speed) {
         speed *= 2;
     }

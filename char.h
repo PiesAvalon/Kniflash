@@ -49,6 +49,7 @@ private:
 
     QVector<QPixmap *> knifes;
     QVector<QPixmap *> hearts;
+    QVector<QPixmap *> buff_lables;
 
     int knife_num;
 
