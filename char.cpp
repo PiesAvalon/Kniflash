@@ -1,5 +1,6 @@
 #include "char.h"
 #include "prop.h"
+#define INIT_KNIFE_R 120
 
 Character::Character(QGraphicsItem *parent)
 {
@@ -89,6 +90,25 @@ Character::Character(QGraphicsItem *parent)
         *boots_lable = boots_lable->scaled(50, 50, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     }
     buff_lables.push_back(boots_lable);
+
+    knife_r = INIT_KNIFE_R;
+
+    give_knife_timer = new QTimer;
+    give_knife_timer->start(3000);
+
+    connect(give_knife_timer, &QTimer::timeout, this, &Character::handle_give_knife_timer);
+
+    dead_image = QPixmap(":/figs/dead.jpg");
+    connect(this, &Character::Dead_signal, this, &Character::handle_dead);
+}
+
+void Character::handle_give_knife_timer()
+{
+    if (knife_num < 4) {
+        push_knife();
+    }
+    give_knife_timer->start(3000);
+    return;
 }
 
 QVariant Character::itemChange(GraphicsItemChange change, const QVariant &value)
@@ -121,6 +141,10 @@ QRectF Character::boundingRect() const
 void Character::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     painter->fillRect(boundingRect(), Qt::transparent);
+    if (dead) {
+        painter->drawPixmap(0, 0, dead_image);
+        return;
+    }
     painter->drawPixmap(0, 0, movie->currentPixmap());
 
     // int m_rotationAngle = 0;
@@ -140,7 +164,8 @@ void Character::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
         painter->rotate(m_rotationAngle + (360.0 / knifes.size()) * i); // 均匀分布角度
 
         // 计算贴图绘制位置（距离中心的半径）
-        const int radius = 150; // 环绕半径
+        // const int radius = 150; // 环绕半径
+        const int radius = knife_r; //环绕半径
         QPixmap *knife = knifes[i];
         QPointF drawPos(-knife->width() / 2, -radius - knife->height() / 2);
 
@@ -220,6 +245,14 @@ void Character::push_knife()
         *pm = pm->scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     }
     knifes.push_back(pm);
+    if (knife_num > 4) {
+        knife_r = 5 * (knife_num - 4) + INIT_KNIFE_R;
+    } else {
+        knife_r = INIT_KNIFE_R;
+    }
+    if (knife_r > 200) {
+        knife_r = 200;
+    }
 }
 
 void Character::pop_knife()
@@ -229,6 +262,14 @@ void Character::pop_knife()
         knifes.pop_back();
     }
     // qDebug() << "knife poped" << knife_num;
+    if (knife_num > 4) {
+        knife_r = 5 * (knife_num - 4) + INIT_KNIFE_R;
+    } else {
+        knife_r = INIT_KNIFE_R;
+    }
+    if (knife_r > 200) {
+        knife_r = 200;
+    }
 }
 
 void Character::add_health(int amount)
@@ -247,6 +288,11 @@ void Character::add_health(int amount)
             }
         }
     }
+}
+
+void Character::handle_dead()
+{
+    dead = true;
 }
 
 void Character::drop_health(int amount)

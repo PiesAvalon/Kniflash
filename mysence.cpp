@@ -2,7 +2,7 @@
 
 MySence::MySence()
 {
-    QPixmap backgroundPixmap(":/figs/background.jpg");
+    QPixmap backgroundPixmap(":/figs/background.png");
     if (backgroundPixmap.isNull()) {
         // 时常使用 qDebug 输出调试信息, 是好的开发习惯
         qDebug() << "Failed to load background image!";

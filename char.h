@@ -40,6 +40,10 @@ public:
         high_speed = false;
     }
 
+    void handle_give_knife_timer();
+
+    void handle_dead();
+
 private:
     QMovie *movie;
     QLabel *label;
@@ -54,12 +58,17 @@ private:
     int knife_num;
 
     QTimer *m_rotateTimer; // 旋转动画定时器
+    QTimer *give_knife_timer;
     qreal m_rotationAngle = 0;
 
     int speed = 3;
     bool high_speed = false;
 
     int health;
+    int knife_r;
+
+    bool dead = false;
+    QPixmap dead_image;
 
     QTimer *speed_timer;
 

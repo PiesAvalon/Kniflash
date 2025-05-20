@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
 
         // qDebug() << "dead in main";
 
-        view->hide();
+        // view->hide();
 
         int result = QMessageBox::question(nullptr,
                                            "确认",
@@ -92,6 +92,7 @@ int main(int argc, char *argv[])
         if (result == QMessageBox::Yes) {
             exit(0);
         } else {
+            view->hide();
             continue;
         }
     }

@@ -138,12 +138,13 @@ compiler_rcc_clean:
 	-$(DEL_FILE) release\qrc_src.cpp
 release/qrc_src.cpp: ../../src.qrc \
 		D:/Qt/6.8.3/mingw_64/bin/rcc.exe \
+		../../figs/dead.jpg \
 		../../figs/heart.jpg \
 		../../figs/healt_bottle.jpg \
 		../../figs/capoo.gif \
+		../../figs/background.png \
 		../../figs/boots.jpg \
 		../../figs/bush.jpg \
-		../../figs/background.jpg \
 		../../figs/knife.jpg
 	D:\Qt\6.8.3\mingw_64\bin\rcc.exe -name src --no-zstd ..\..\src.qrc -o release\qrc_src.cpp
 
@@ -1545,27 +1546,19 @@ release/main.o: ../../main.cpp D:/Qt/6.8.3/mingw_64/include/QtWidgets/QApplicati
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qlocale.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qguiapplication_platform.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/QObject \
-		../../bush.h \
-		D:/Qt/6.8.3/mingw_64/include/QtWidgets/QGraphicsObject \
-		D:/Qt/6.8.3/mingw_64/include/QtWidgets/qgraphicsitem.h \
-		D:/Qt/6.8.3/mingw_64/include/QtGui/qpainterpath.h \
-		D:/Qt/6.8.3/mingw_64/include/QtGui/QPainter \
-		D:/Qt/6.8.3/mingw_64/include/QtGui/qpainter.h \
-		D:/Qt/6.8.3/mingw_64/include/QtGui/qtextoption.h \
-		D:/Qt/6.8.3/mingw_64/include/QtGui/qpen.h \
-		D:/Qt/6.8.3/mingw_64/include/QtGui/qbrush.h \
-		D:/Qt/6.8.3/mingw_64/include/QtGui/qfontinfo.h \
-		D:/Qt/6.8.3/mingw_64/include/QtGui/qfont.h \
-		D:/Qt/6.8.3/mingw_64/include/QtCore/qendian.h \
-		D:/Qt/6.8.3/mingw_64/include/QtGui/qfontmetrics.h \
-		../../mainwindow.h \
-		D:/Qt/6.8.3/mingw_64/include/QtWidgets/QMainWindow \
-		D:/Qt/6.8.3/mingw_64/include/QtWidgets/qmainwindow.h \
+		D:/Qt/6.8.3/mingw_64/include/QtWidgets/QMessageBox \
+		D:/Qt/6.8.3/mingw_64/include/QtWidgets/qmessagebox.h \
+		D:/Qt/6.8.3/mingw_64/include/QtWidgets/qdialog.h \
 		D:/Qt/6.8.3/mingw_64/include/QtWidgets/qwidget.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qaction.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qkeysequence.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qicon.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qpalette.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qbrush.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qfont.h \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/qendian.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qfontmetrics.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qfontinfo.h \
 		D:/Qt/6.8.3/mingw_64/include/QtWidgets/qsizepolicy.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qevent.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qiodevice.h \
@@ -1582,6 +1575,18 @@ release/main.o: ../../main.cpp D:/Qt/6.8.3/mingw_64/include/QtWidgets/QApplicati
 		D:/Qt/6.8.3/mingw_64/include/QtCore/QSizeF \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/QTransform \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qscreen_platform.h \
+		D:/Qt/6.8.3/mingw_64/include/QtWidgets/qdialogbuttonbox.h \
+		../../bush.h \
+		D:/Qt/6.8.3/mingw_64/include/QtWidgets/QGraphicsObject \
+		D:/Qt/6.8.3/mingw_64/include/QtWidgets/qgraphicsitem.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qpainterpath.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/QPainter \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qpainter.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qtextoption.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qpen.h \
+		../../mainwindow.h \
+		D:/Qt/6.8.3/mingw_64/include/QtWidgets/QMainWindow \
+		D:/Qt/6.8.3/mingw_64/include/QtWidgets/qmainwindow.h \
 		D:/Qt/6.8.3/mingw_64/include/QtWidgets/qtabwidget.h \
 		../../mygraphicsview.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/QDebug \
