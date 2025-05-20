@@ -20,7 +20,6 @@ Character::Character(QGraphicsItem *parent)
     });
     connect(movie, &QMovie::finished, this, [this]() {
         movie->jumpToFrame(0);
-        qDebug() << "finishtd";
     });
 
     moveTimer = new QTimer(this);
@@ -36,9 +35,7 @@ Character::Character(QGraphicsItem *parent)
             else if (key == Qt::Key_S)
                 direction.ry() += 1;
             else if (key == Qt::Key_C) {
-                // qDebug() << "dead";
                 drop_health(1);
-                // qDebug() << health;
             } else if (key == Qt::Key_X) {
                 pop_knife();
             }
@@ -51,15 +48,13 @@ Character::Character(QGraphicsItem *parent)
     });
 
     health = 100;
-    int heart_num = health / 20;
-    for (int i = 0; i < heart_num; i++) {
+    for (int i = 0; i < 5; i++) {
         QPixmap *ph = new QPixmap(":/figs/heart.jpg");
         if (!ph->isNull()) {
             // *ph = ph->scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
             hearts.push_back(ph);
         }
     }
-    // qDebug() << hearts.size();
 
     knife_num = 4;
     for (int i = 0; i < knife_num; i++) {
@@ -84,6 +79,7 @@ Character::Character(QGraphicsItem *parent)
 
     speed_timer = new QTimer(this);
     connect(speed_timer, &QTimer::timeout, this, &Character::speed_finished);
+    connect(moveTimer, &QTimer::timeout, this, &Character::control_hearts);
 
     QPixmap *boots_lable = new QPixmap(":/figs/boots.jpg");
     if (!boots_lable->isNull()) {
@@ -220,7 +216,6 @@ void Character::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
 void Character::push_knife()
 {
     knife_num++;
-    // qDebug() << "knife pushed" << knife_num;
     QPixmap *pm = new QPixmap(":/figs/knife.jpg");
     if (!pm->isNull()) {
         *pm = pm->scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
@@ -242,7 +237,6 @@ void Character::pop_knife()
         knife_num--;
         knifes.pop_back();
     }
-    // qDebug() << "knife poped" << knife_num;
     if (knife_num > 4) {
         knife_r = 5 * (knife_num - 4) + INIT_KNIFE_R;
     } else {
@@ -255,47 +249,26 @@ void Character::pop_knife()
 
 void Character::add_health(int amount)
 {
-    // qDebug() << "health add" << amount;
     if (amount == 20) {
         health += 20;
         if (health >= 100) {
             health = 100;
         }
-        if (hearts.size() < 5) {
-            QPixmap *ph = new QPixmap(":/figs/heart.jpg");
-            if (!ph->isNull()) {
-                // *ph = ph->scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-                hearts.push_back(ph);
-            }
-        }
     }
 }
 
-void Character::handle_dead()
-{
-    dead = true;
-}
+
 
 void Character::drop_health(int amount)
 {
-    int pre_health = health;
     health -= amount;
     if (health <= 0) {
         emit Dead_signal();
-    }
-    for (int i = 1; i < 5; i++) {
-        if (pre_health >= i * 20 && health < i * 20) {
-            // qDebug() << "pop";
-            if (!hearts.empty()) {
-                hearts.pop_back();
-            }
-        }
     }
 }
 
 void Character::picked_boots()
 {
-    // qDebug() << "boots picked! ";
     speed_timer->start(5000);
     if (!high_speed) {
         speed *= 2;
@@ -305,7 +278,6 @@ void Character::picked_boots()
 
 void Character::handle_pick(int id)
 {
-    // qDebug() << "handle" << id;
     if (id == KNIFE) {
         push_knife();
     } else if (id == HEALTH) {

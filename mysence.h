@@ -12,12 +12,14 @@ class MySence : public QGraphicsScene
 {
     Q_OBJECT
     QTimer* timer;
+    QTimer* character_attack_timer;
 
 public:
     MySence();
     bool areItemsClose(QGraphicsItem* item1, QGraphicsItem* item2, float threshold);
 private slots:
     void checkDistance();
+    void checkCharacterDistance();
 signals:
     void propPicked(Prop* p);
 };

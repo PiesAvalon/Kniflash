@@ -9,6 +9,8 @@ Mob::Mob()
 
 void Mob::random_move()
 {
+    if (dead)
+        return;
     // 1. 随机选择 A/S/D/W 中的一个按键
     Qt::Key randomKey;
     int keyChoice = QRandomGenerator::global()->bounded(4); // 0-3
@@ -30,7 +32,6 @@ void Mob::random_move()
 
     // 2. 将按键 push 到 keys_pressed 容器中
     pressedKeys.insert(randomKey);
-    qDebug() << "Key pressed:" << randomKey;
 
     // 3. 随机生成 1-5 秒的延迟（单位：毫秒）
     int delayMs = QRandomGenerator::global()->bounded(1000, 5001); // 1000ms-5000ms
@@ -40,7 +41,6 @@ void Mob::random_move()
         auto it = std::find(pressedKeys.begin(), pressedKeys.end(), randomKey);
         if (it != pressedKeys.end()) {
             pressedKeys.erase(it);
-            qDebug() << "Key released:" << randomKey;
         }
         emit moved_signal();
     });

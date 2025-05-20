@@ -77,10 +77,6 @@ int main(int argc, char *argv[])
         QObject::connect(player, &Character::Dead_signal, &loop2, &QEventLoop::quit);
         loop2.exec();
 
-        // qDebug() << "dead in main";
-
-        // view->hide();
-
         int result = QMessageBox::question(nullptr,
                                            "确认",
                                            "确定要退出吗？",

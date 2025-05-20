@@ -31,7 +31,6 @@ public:
 
     int get_id()
     {
-        // qDebug() << m_prop_class;
         return m_prop_class;
     }
 

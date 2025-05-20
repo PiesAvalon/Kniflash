@@ -46,6 +46,10 @@ MySence::MySence()
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &MySence::checkDistance);
     timer->start(10); // 每10ms检测一次
+
+    character_attack_timer = new QTimer(this);
+    connect(character_attack_timer, &QTimer::timeout, this, &MySence::checkCharacterDistance);
+    character_attack_timer->start(500);
 }
 
 bool MySence::areItemsClose(QGraphicsItem *item1, QGraphicsItem *item2, float threshold)
@@ -54,45 +58,8 @@ bool MySence::areItemsClose(QGraphicsItem *item1, QGraphicsItem *item2, float th
     QPointF pos2 = item2->mapToScene(item2->boundingRect().center());
     float dx = pos1.x() - pos2.x();
     float dy = pos1.y() - pos2.y();
-    // qDebug() << dx * dx + dy * dy;
-    // qDebug() << threshold * threshold;
-    // qDebug() << "---------";
     return (dx * dx + dy * dy) < (threshold * threshold);
 }
-
-// void MySence::checkDistance()
-// {
-//     // 获取场景中所有Item
-//     QList<QGraphicsItem *> allItems = this->items();
-
-//     // 分离出Character和Prop类对象
-//     QGraphicsItem *characterItem = nullptr;
-//     QList<QGraphicsItem *> propItems;
-
-//     for (QGraphicsItem *item : allItems) {
-//         if (item->type() == Character::Type) { // 假设Character类重写了type()
-//             characterItem = item;
-//         } else if (item->type() == Prop::Type) { // 假设Prop类重写了type()
-//             propItems.append(item);
-//         }
-//     }
-
-//     if (!characterItem)
-//         return; // 没有Character对象
-//     // 检测Character与所有Prop的距离
-//     const float threshold = 50.0f; // 距离阈值
-//     for (QGraphicsItem *propItem : propItems) {
-//         if (areItemsClose(characterItem, propItem, threshold)) {
-//             if (!dynamic_cast<Prop *>(propItem)->get_picked()) {
-//                 int id = dynamic_cast<Prop *>(propItem)->get_id();
-//                 // qDebug() << id;
-//                 dynamic_cast<Character *>(characterItem)->handle_pick(id);
-//             }
-
-//             emit propPicked(dynamic_cast<Prop *>(propItem));
-//         }
-//     }
-// }
 
 void MySence::checkDistance()
 {
@@ -134,6 +101,51 @@ void MySence::checkDistance()
                     character->handle_pick(id); // 每个Character独立处理
                 }
                 emit propPicked(prop); // 可以保留原信号发射逻辑
+            }
+        }
+    }
+}
+
+void MySence::checkCharacterDistance()
+{
+    QList<QGraphicsItem *> allItems = this->items();
+
+    // 步骤1：提取所有 Character 对象
+    QList<Character *> characters;
+    for (QGraphicsItem *item : allItems) {
+        if (item->type() == Character::Type) {
+            if (Character *ch = dynamic_cast<Character *>(item)) {
+                characters.append(ch);
+            }
+        }
+    }
+
+    qDebug() << characters.size();
+
+    // 步骤2：创建已处理对象集合
+    QSet<Character *> processed;
+
+    // 步骤3：遍历所有唯一对象对 (i < j 避免重复检测)
+    for (int i = 0; i < characters.size(); ++i) {
+        Character *char1 = characters[i];
+        for (int j = i + 1; j < characters.size(); ++j) {
+            Character *char2 = characters[j];
+
+            // 计算攻击距离之和
+            float threshold = char1->get_near_attack_range() + char2->get_near_attack_range();
+
+            if (areItemsClose(char1, char2, threshold) && !char1->dead && !char2->dead) {
+                // 对 char1 执行 be_hit（如果未处理过）
+                if (!processed.contains(char1)) {
+                    char1->be_hit(); // 修改点1：方法名替换
+                    processed.insert(char1);
+                }
+
+                // 对 char2 执行 be_hit（如果未处理过）
+                if (!processed.contains(char2)) {
+                    char2->be_hit(); // 修改点2：方法名替换
+                    processed.insert(char2);
+                }
             }
         }
     }

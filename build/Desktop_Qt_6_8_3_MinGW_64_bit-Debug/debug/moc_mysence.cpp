@@ -43,7 +43,8 @@ static constexpr auto qt_meta_stringdata_ZN7MySenceE = QtMocHelpers::stringData(
     "",
     "Prop*",
     "p",
-    "checkDistance"
+    "checkDistance",
+    "checkCharacterDistance"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -55,7 +56,7 @@ Q_CONSTINIT static const uint qt_meta_data_ZN7MySenceE[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -63,15 +64,17 @@ Q_CONSTINIT static const uint qt_meta_data_ZN7MySenceE[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   26,    2, 0x06,    1 /* Public */,
+       1,    1,   32,    2, 0x06,    1 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       5,    0,   29,    2, 0x08,    3 /* Private */,
+       5,    0,   35,    2, 0x08,    3 /* Private */,
+       6,    0,   36,    2, 0x08,    4 /* Private */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
 
  // slots: parameters
+    QMetaType::Void,
     QMetaType::Void,
 
        0        // eod
@@ -90,6 +93,8 @@ Q_CONSTINIT const QMetaObject MySence::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<Prop *, std::false_type>,
         // method 'checkDistance'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'checkCharacterDistance'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -102,6 +107,7 @@ void MySence::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         switch (_id) {
         case 0: _t->propPicked((*reinterpret_cast< std::add_pointer_t<Prop*>>(_a[1]))); break;
         case 1: _t->checkDistance(); break;
+        case 2: _t->checkCharacterDistance(); break;
         default: ;
         }
     }
@@ -148,14 +154,14 @@ int MySence::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 3;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 3;
     }
     return _id;
 }

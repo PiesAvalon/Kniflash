@@ -20,6 +20,8 @@ public:
 
     void keyPressEvent(QKeyEvent *event) override
     {
+        if (dead)
+            return;
         if (!event->isAutoRepeat()) {
             movie->start();
             if (!pressedKeys.contains(event->key())) {
@@ -29,6 +31,8 @@ public:
     }
     void keyReleaseEvent(QKeyEvent *event) override
     {
+        if (dead)
+            return;
         if (!event->isAutoRepeat()) {
             pressedKeys.remove(event->key());
             if (!pressedKeys.count()) {
@@ -58,7 +62,26 @@ public:
 
     void handle_give_knife_timer();
 
-    void handle_dead();
+    void handle_dead()
+    {
+        dead = true;
+        moveTimer->stop();
+        m_rotateTimer->stop();
+        give_knife_timer->stop();
+        update();
+    }
+
+    int get_near_attack_range() { return knife_r; }
+
+    void be_hit()
+    {
+        if (knife_num) {
+            pop_knife();
+        } else {
+            drop_health(20);
+        }
+    }
+    bool dead = false;
 
 private:
     QMovie *movie;
@@ -82,13 +105,33 @@ private:
     int health;
     int knife_r;
 
-    bool dead = false;
     QPixmap dead_image;
 
     QTimer *speed_timer;
 
+    void add_heart()
+    {
+        QPixmap *ph = new QPixmap(":/figs/heart.jpg");
+        if (!ph->isNull()) {
+            hearts.push_back(ph);
+        }
+    }
+
+    void pop_heart() { hearts.pop_back(); }
+
+    void control_hearts()
+    {
+        int hearts_cnt = health / 20;
+        if (hearts_cnt < hearts.size()) {
+            pop_heart();
+        } else if (hearts_cnt > hearts.size()) {
+            add_heart();
+        }
+    }
+
 protected:
     QSet<int> pressedKeys;
+
 signals:
     void position_changed();
     void Dead_signal();
