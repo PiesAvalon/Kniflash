@@ -1,43 +1,14 @@
 #include <QApplication>
 
 #include <QObject>
+#include <QRandomGenerator>
 #include "QMessageBox"
-#include "bush.h"
 #include "mainwindow.h"
-#include "mygraphicsview.h"
+#include "mob.h"
 #include "mysence.h"
 #include "myview.h"
-#include "prop.h"
+#include "player.h"
 #include "propfactory.h"
-
-// int main(int argc, char *argv[]) {
-//     QApplication app(argc, argv);
-
-//     // 初始化游戏场景
-//     QGraphicsScene scene;
-
-//     MyGraphicsView view(&scene);
-//     view.resize(1080, 675);
-//     // 关闭滚动条
-//     view.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-//     view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
-//     // 创建开始界面
-//     MainWindow mw;
-
-//     // 连接信号到成员函数
-//     // 对应步骤(3)
-//     // 在 main 函数中, 调用 connect 需要加上 QObject::
-//     // 但是在某些类的成员函数中调用 connect 却并不需要, 为什么?
-//     QObject::connect(&mw, &MainWindow::evokeGameSignal, &view,
-//                      &MyGraphicsView::handleEvokeGameSignal);
-
-//     // 展示开始界面
-//     mw.show();
-
-//     // 运行应用, 并以应用的返回值作为整个程序的返回值
-//     return app.exec();
-// }
 
 int main(int argc, char *argv[])
 {
@@ -58,18 +29,43 @@ int main(int argc, char *argv[])
         view->setScene(scene);
         view->resize(1080, 675);
         //添加人物
-        Character* cha = new Character();
-        scene->addItem(cha);
-        cha->setPos(scene->width() / 2,
-                    scene->height() / 2); // 初始位置在场景中心
-        cha->setFlag(QGraphicsItem::ItemIsFocusable);
-        cha->setFocus();
+        Player* player = new Player();
+        scene->addItem(player);
+        player->setPos(scene->width() / 2,
+                       scene->height() / 2); // 初始位置在场景中心
+        player->setFlag(QGraphicsItem::ItemIsFocusable);
+        player->setFocus();
+
+        //添加mob
+        // 创建存储Mob的容器
+        QVector<Mob*> mobVec;
+        mobVec.reserve(10); // 预分配内存提升性能
+
+        // 获取场景中心坐标
+        const qreal centerX = scene->width() / 2.0;
+        const qreal centerY = scene->height() / 2.0;
+
+        // 生成10个Mob
+        for (int i = 0; i < 5; ++i) {
+            Mob* mob = new Mob(); // 创建新Mob
+
+            // 生成-1500到+1500范围内的随机偏移量
+            qreal offsetX = QRandomGenerator::global()->bounded(-1500, 1500);
+            qreal offsetY = QRandomGenerator::global()->bounded(-1500, 1500);
+
+            // 设置随机位置（中心坐标 + 偏移量）
+            mob->setPos(centerX + offsetX, centerY + offsetY);
+
+            // 添加到场景和容器
+            scene->addItem(mob);
+            mobVec.push_back(mob);
+        }
 
         // 关闭滚动条
         view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        view->centerOn(cha);
-        QObject::connect(cha, &Character::position_changed, [=]() { view->centerOn(cha); });
+        view->centerOn(player);
+        QObject::connect(player, &Character::position_changed, [=]() { view->centerOn(player); });
 
         view->resetTransform();
 
@@ -78,7 +74,7 @@ int main(int argc, char *argv[])
         view->show();
 
         QEventLoop loop2;
-        QObject::connect(cha, &Character::Dead_signal, &loop2, &QEventLoop::quit);
+        QObject::connect(player, &Character::Dead_signal, &loop2, &QEventLoop::quit);
         loop2.exec();
 
         // qDebug() << "dead in main";

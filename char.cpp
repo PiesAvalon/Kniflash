@@ -216,25 +216,6 @@ void Character::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
         painter->drawPixmap(xPos, yPos, scaled);
     }
 }
-void Character::keyPressEvent(QKeyEvent *event)
-{
-    if (!event->isAutoRepeat()) {
-        movie->start();
-        if (!pressedKeys.contains(event->key())) {
-            pressedKeys.insert(event->key());
-        }
-    }
-}
-
-void Character::keyReleaseEvent(QKeyEvent *event)
-{
-    if (!event->isAutoRepeat()) {
-        pressedKeys.remove(event->key());
-        if (!pressedKeys.count()) {
-            movie->setPaused(true);
-        }
-    }
-}
 
 void Character::push_knife()
 {

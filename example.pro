@@ -13,9 +13,11 @@ SOURCES += \
     char.cpp \
     main.cpp \
     mainwindow.cpp \
+    mob.cpp \
     mygraphicsview.cpp \
     mysence.cpp \
     myview.cpp \
+    player.cpp \
     prop.cpp \
     propfactory.cpp
 
@@ -23,9 +25,11 @@ HEADERS += \
     bush.h \
     char.h \
     mainwindow.h \
+    mob.h \
     mygraphicsview.h \
     mysence.h \
     myview.h \
+    player.h \
     prop.h \
     propfactory.h
 

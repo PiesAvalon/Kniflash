@@ -18,8 +18,24 @@ public:
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *) override;
 
-    void keyPressEvent(QKeyEvent *event) override;
-    void keyReleaseEvent(QKeyEvent *event) override;
+    void keyPressEvent(QKeyEvent *event) override
+    {
+        if (!event->isAutoRepeat()) {
+            movie->start();
+            if (!pressedKeys.contains(event->key())) {
+                pressedKeys.insert(event->key());
+            }
+        }
+    }
+    void keyReleaseEvent(QKeyEvent *event) override
+    {
+        if (!event->isAutoRepeat()) {
+            pressedKeys.remove(event->key());
+            if (!pressedKeys.count()) {
+                movie->setPaused(true);
+            }
+        }
+    }
 
     void push_knife();
     void pop_knife();
@@ -49,7 +65,6 @@ private:
     QLabel *label;
 
     QTimer *moveTimer;
-    QSet<int> pressedKeys;
 
     QVector<QPixmap *> knifes;
     QVector<QPixmap *> hearts;
@@ -72,6 +87,8 @@ private:
 
     QTimer *speed_timer;
 
+protected:
+    QSet<int> pressedKeys;
 signals:
     void position_changed();
     void Dead_signal();

@@ -60,40 +60,81 @@ bool MySence::areItemsClose(QGraphicsItem *item1, QGraphicsItem *item2, float th
     return (dx * dx + dy * dy) < (threshold * threshold);
 }
 
+// void MySence::checkDistance()
+// {
+//     // 获取场景中所有Item
+//     QList<QGraphicsItem *> allItems = this->items();
+
+//     // 分离出Character和Prop类对象
+//     QGraphicsItem *characterItem = nullptr;
+//     QList<QGraphicsItem *> propItems;
+
+//     for (QGraphicsItem *item : allItems) {
+//         if (item->type() == Character::Type) { // 假设Character类重写了type()
+//             characterItem = item;
+//         } else if (item->type() == Prop::Type) { // 假设Prop类重写了type()
+//             propItems.append(item);
+//         }
+//     }
+
+//     if (!characterItem)
+//         return; // 没有Character对象
+//     // 检测Character与所有Prop的距离
+//     const float threshold = 50.0f; // 距离阈值
+//     for (QGraphicsItem *propItem : propItems) {
+//         if (areItemsClose(characterItem, propItem, threshold)) {
+//             if (!dynamic_cast<Prop *>(propItem)->get_picked()) {
+//                 int id = dynamic_cast<Prop *>(propItem)->get_id();
+//                 // qDebug() << id;
+//                 dynamic_cast<Character *>(characterItem)->handle_pick(id);
+//             }
+
+//             emit propPicked(dynamic_cast<Prop *>(propItem));
+//         }
+//     }
+// }
+
 void MySence::checkDistance()
 {
     // 获取场景中所有Item
     QList<QGraphicsItem *> allItems = this->items();
 
-    // 分离出Character和Prop类对象
-    QGraphicsItem *characterItem = nullptr;
+    // 分离出所有Character和Prop类对象
+    QList<QGraphicsItem *> characterItems; // 改为存储多个Character
     QList<QGraphicsItem *> propItems;
 
     for (QGraphicsItem *item : allItems) {
-        if (item->type() == Character::Type) { // 假设Character类重写了type()
-            characterItem = item;
-        } else if (item->type() == Prop::Type) { // 假设Prop类重写了type()
+        if (item->type() == Character::Type) {
+            characterItems.append(item); // 收集所有Character
+        } else if (item->type() == Prop::Type) {
             propItems.append(item);
         }
     }
 
-    if (!characterItem)
-        return; // 没有Character对象
-    // 检测Character与所有Prop的距离
-    const float threshold = 50.0f; // 距离阈值
-    // qDebug() << propItems.count();
-    for (QGraphicsItem *propItem : propItems) {
-        // qDebug() << "start";
-        if (areItemsClose(characterItem, propItem, threshold)) {
-            // connect(this, &MySence::propPicked, propItem, &Prop::handlePicked);
-            //我不理解为什么这行代码无法运行
-            if (!dynamic_cast<Prop *>(propItem)->get_picked()) {
-                int id = dynamic_cast<Prop *>(propItem)->get_id();
-                // qDebug() << id;
-                dynamic_cast<Character *>(characterItem)->handle_pick(id);
-            }
+    if (characterItems.isEmpty())
+        return; // 没有Character对象时提前退出
 
-            emit propPicked(dynamic_cast<Prop *>(propItem));
+    const float threshold = 50.0f; // 距离阈值
+
+    // 对每个Character进行操作
+    for (QGraphicsItem *characterItem : characterItems) {
+        Character *character = dynamic_cast<Character *>(characterItem);
+        if (!character)
+            continue; // 安全类型检查
+
+        // 检测当前Character与所有Prop的距离
+        for (QGraphicsItem *propItem : propItems) {
+            Prop *prop = dynamic_cast<Prop *>(propItem);
+            if (!prop)
+                continue; // 安全类型检查
+
+            if (areItemsClose(characterItem, propItem, threshold)) {
+                if (!prop->get_picked()) {
+                    int id = prop->get_id();
+                    character->handle_pick(id); // 每个Character独立处理
+                }
+                emit propPicked(prop); // 可以保留原信号发射逻辑
+            }
         }
     }
 }
