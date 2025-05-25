@@ -3,7 +3,6 @@
 Prop::Prop(const QString &imagePath, int prop_class, QSize targetSize, QGraphicsItem *parent)
     : QGraphicsObject(parent)
 {
-    // qDebug() << prop_class;
     m_prop_class = prop_class;
     // 加载原始图片并立即缩放
     QPixmap original(imagePath);

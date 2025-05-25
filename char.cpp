@@ -1,6 +1,7 @@
 #include "char.h"
 #include "prop.h"
 #define INIT_KNIFE_R 120
+#define ATTACK_COOLDOWN 500
 
 Character::Character(QGraphicsItem *parent)
 {
@@ -38,6 +39,15 @@ Character::Character(QGraphicsItem *parent)
                 drop_health(1);
             } else if (key == Qt::Key_X) {
                 pop_knife();
+            } else if (key == Qt::Key_Space) {
+                if (ready_to_attack) {
+                    if (knife_num && aim_target) {
+                        be_hit();
+                        aim_target->be_hit();
+                        attack_cooldown->start(ATTACK_COOLDOWN);
+                        ready_to_attack = false;
+                    }
+                }
             }
         }
         if (!direction.isNull()) {
@@ -96,6 +106,14 @@ Character::Character(QGraphicsItem *parent)
 
     dead_image = QPixmap(":/figs/dead.jpg");
     connect(this, &Character::Dead_signal, this, &Character::handle_dead);
+
+    aim_range = 500;
+    attack_cooldown = new QTimer;
+    // attack_cooldown->start(ATTACK_COOLDOWN);
+    connect(attack_cooldown, &QTimer::timeout, this, [this]() {
+        ready_to_attack = true;
+        attack_cooldown->stop();
+    });
 }
 
 void Character::handle_give_knife_timer()

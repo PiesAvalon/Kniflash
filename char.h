@@ -5,9 +5,11 @@
 #include <QGraphicsObject>
 #include <QKeyEvent>
 #include <QLabel>
+#include <QList>
 #include <QMovie>
 #include <QTimer>
 #include "qpainter.h"
+
 class Character : public QGraphicsObject
 {
     Q_OBJECT;
@@ -40,6 +42,13 @@ public:
             }
         }
     }
+
+    // void mousePressEvent(QMouseEvent *event) override
+    // {
+    //     if (event->button() == Qt::LeftButton) {
+    //         qDebug() << "true";
+    //     }
+    // }
 
     void push_knife();
     void pop_knife();
@@ -83,6 +92,10 @@ public:
     }
     bool dead = false;
 
+    int get_aim_range() { return aim_range; }
+    QVector<Character *> can_aim_targets;
+    Character *aim_target;
+
 private:
     QMovie *movie;
     QLabel *label;
@@ -108,6 +121,11 @@ private:
     QPixmap dead_image;
 
     QTimer *speed_timer;
+
+    int aim_range;
+
+    QTimer *attack_cooldown;
+    bool ready_to_attack = true;
 
     void add_heart()
     {

@@ -13,13 +13,23 @@ class MySence : public QGraphicsScene
     Q_OBJECT
     QTimer* timer;
     QTimer* character_attack_timer;
+    QTimer* aimTimer;
 
 public:
     MySence();
     bool areItemsClose(QGraphicsItem* item1, QGraphicsItem* item2, float threshold);
+    int return_char_distance_squre(Character* c1, Character* c2)
+    {
+        QPointF pos1 = c1->mapToScene(c1->boundingRect().center());
+        QPointF pos2 = c2->mapToScene(c2->boundingRect().center());
+        float dx = pos1.x() - pos2.x();
+        float dy = pos1.y() - pos2.y();
+        return (dx * dx + dy * dy);
+    }
 private slots:
     void checkDistance();
     void checkCharacterDistance();
+    void getAimedChar();
 signals:
     void propPicked(Prop* p);
 };

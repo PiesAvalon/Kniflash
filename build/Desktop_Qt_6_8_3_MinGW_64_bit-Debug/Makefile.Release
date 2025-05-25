@@ -386,9 +386,19 @@ release/moc_char.cpp: ../../char.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/QTimer \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qtimer.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qbasictimer.h \
+		../../mysence.h \
+		D:/Qt/6.8.3/mingw_64/include/QtWidgets/QGraphicsScene \
+		D:/Qt/6.8.3/mingw_64/include/QtWidgets/qgraphicsscene.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qpen.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/Qpainter \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qpainter.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qtextoption.h \
-		D:/Qt/6.8.3/mingw_64/include/QtGui/qpen.h \
+		../../char.h \
+		../../prop.h \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/QFile \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/qfile.h \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/qfiledevice.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/QPainter \
 		release/moc_predefs.h \
 		D:/Qt/6.8.3/mingw_64/bin/moc.exe
 	D:\Qt\6.8.3\mingw_64\bin\moc.exe $(DEFINES) --include "C:/Users/Tommy Ge/Desktop/Kniflash/build/Desktop_Qt_6_8_3_MinGW_64_bit-Debug/release/moc_predefs.h" -ID:/Qt/6.8.3/mingw_64/mkspecs/win32-g++ -I"C:/Users/Tommy Ge/Desktop/Kniflash" -ID:/Qt/6.8.3/mingw_64/include -ID:/Qt/6.8.3/mingw_64/include/QtWidgets -ID:/Qt/6.8.3/mingw_64/include/QtGui -ID:/Qt/6.8.3/mingw_64/include/QtCore -I. -ID:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -ID:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -ID:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -ID:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -ID:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -ID:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\char.h -o release\moc_char.cpp
@@ -812,9 +822,18 @@ release/moc_mob.cpp: ../../mob.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/QTimer \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qtimer.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qbasictimer.h \
+		../../mysence.h \
+		D:/Qt/6.8.3/mingw_64/include/QtWidgets/QGraphicsScene \
+		D:/Qt/6.8.3/mingw_64/include/QtWidgets/qgraphicsscene.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qpen.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/Qpainter \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qpainter.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qtextoption.h \
-		D:/Qt/6.8.3/mingw_64/include/QtGui/qpen.h \
+		../../prop.h \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/QFile \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/qfile.h \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/qfiledevice.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/QPainter \
 		release/moc_predefs.h \
 		D:/Qt/6.8.3/mingw_64/bin/moc.exe
 	D:\Qt\6.8.3\mingw_64\bin\moc.exe $(DEFINES) --include "C:/Users/Tommy Ge/Desktop/Kniflash/build/Desktop_Qt_6_8_3_MinGW_64_bit-Debug/release/moc_predefs.h" -ID:/Qt/6.8.3/mingw_64/mkspecs/win32-g++ -I"C:/Users/Tommy Ge/Desktop/Kniflash" -ID:/Qt/6.8.3/mingw_64/include -ID:/Qt/6.8.3/mingw_64/include/QtWidgets -ID:/Qt/6.8.3/mingw_64/include/QtGui -ID:/Qt/6.8.3/mingw_64/include/QtCore -I. -ID:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -ID:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -ID:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -ID:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -ID:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -ID:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\mob.h -o release\moc_mob.cpp
@@ -1045,6 +1064,7 @@ release/moc_mysence.cpp: ../../mysence.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/QTimer \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qtimer.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qbasictimer.h \
+		../../mysence.h \
 		../../prop.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/QFile \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qfile.h \
@@ -1610,9 +1630,13 @@ release/char.o: ../../char.cpp ../../char.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/QTimer \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qtimer.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qbasictimer.h \
+		../../mysence.h \
+		D:/Qt/6.8.3/mingw_64/include/QtWidgets/QGraphicsScene \
+		D:/Qt/6.8.3/mingw_64/include/QtWidgets/qgraphicsscene.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qpen.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/Qpainter \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qpainter.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qtextoption.h \
-		D:/Qt/6.8.3/mingw_64/include/QtGui/qpen.h \
 		../../prop.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/QFile \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qfile.h \
@@ -1785,6 +1809,8 @@ release/main.o: ../../main.cpp D:/Qt/6.8.3/mingw_64/include/QtWidgets/QApplicati
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qlocale.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qguiapplication_platform.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/QObject \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/QRandomGenerator \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/qrandom.h \
 		D:/Qt/6.8.3/mingw_64/include/QtWidgets/QMessageBox \
 		D:/Qt/6.8.3/mingw_64/include/QtWidgets/qmessagebox.h \
 		D:/Qt/6.8.3/mingw_64/include/QtWidgets/qdialog.h \
@@ -1821,7 +1847,6 @@ release/main.o: ../../main.cpp D:/Qt/6.8.3/mingw_64/include/QtWidgets/QApplicati
 		D:/Qt/6.8.3/mingw_64/include/QtWidgets/qtabwidget.h \
 		../../mob.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/QRandomGenerator64 \
-		D:/Qt/6.8.3/mingw_64/include/QtCore/qrandom.h \
 		../../char.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/QDebug \
 		D:/Qt/6.8.3/mingw_64/include/QtWidgets/QGraphicsObject \
@@ -1852,13 +1877,13 @@ release/main.o: ../../main.cpp D:/Qt/6.8.3/mingw_64/include/QtWidgets/QApplicati
 		D:/Qt/6.8.3/mingw_64/include/QtCore/QTimer \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qtimer.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qbasictimer.h \
-		D:/Qt/6.8.3/mingw_64/include/QtGui/qpainter.h \
-		D:/Qt/6.8.3/mingw_64/include/QtGui/qtextoption.h \
-		D:/Qt/6.8.3/mingw_64/include/QtGui/qpen.h \
 		../../mysence.h \
 		D:/Qt/6.8.3/mingw_64/include/QtWidgets/QGraphicsScene \
 		D:/Qt/6.8.3/mingw_64/include/QtWidgets/qgraphicsscene.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qpen.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/Qpainter \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qpainter.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qtextoption.h \
 		../../prop.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/QFile \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qfile.h \
@@ -1871,7 +1896,6 @@ release/main.o: ../../main.cpp D:/Qt/6.8.3/mingw_64/include/QtWidgets/QApplicati
 		D:/Qt/6.8.3/mingw_64/include/QtWidgets/qabstractscrollarea.h \
 		../../player.h \
 		../../propfactory.h \
-		D:/Qt/6.8.3/mingw_64/include/QtCore/QRandomGenerator \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/Qpair \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/QtMath \
 		../../bush.h
@@ -2319,9 +2343,18 @@ release/mob.o: ../../mob.cpp ../../mob.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/QTimer \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qtimer.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qbasictimer.h \
+		../../mysence.h \
+		D:/Qt/6.8.3/mingw_64/include/QtWidgets/QGraphicsScene \
+		D:/Qt/6.8.3/mingw_64/include/QtWidgets/qgraphicsscene.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qpen.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/Qpainter \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qpainter.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qtextoption.h \
-		D:/Qt/6.8.3/mingw_64/include/QtGui/qpen.h
+		../../prop.h \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/QFile \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/qfile.h \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/qfiledevice.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/QPainter
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\mob.o ..\..\mob.cpp
 
 release/mygraphicsview.o: ../../mygraphicsview.cpp ../../mygraphicsview.h \
@@ -3206,9 +3239,18 @@ release/player.o: ../../player.cpp ../../player.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/QTimer \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qtimer.h \
 		D:/Qt/6.8.3/mingw_64/include/QtCore/qbasictimer.h \
+		../../mysence.h \
+		D:/Qt/6.8.3/mingw_64/include/QtWidgets/QGraphicsScene \
+		D:/Qt/6.8.3/mingw_64/include/QtWidgets/qgraphicsscene.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/qpen.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/Qpainter \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qpainter.h \
 		D:/Qt/6.8.3/mingw_64/include/QtGui/qtextoption.h \
-		D:/Qt/6.8.3/mingw_64/include/QtGui/qpen.h
+		../../prop.h \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/QFile \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/qfile.h \
+		D:/Qt/6.8.3/mingw_64/include/QtCore/qfiledevice.h \
+		D:/Qt/6.8.3/mingw_64/include/QtGui/QPainter
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\player.o ..\..\player.cpp
 
 release/prop.o: ../../prop.cpp ../../prop.h \

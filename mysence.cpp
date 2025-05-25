@@ -50,6 +50,10 @@ MySence::MySence()
     character_attack_timer = new QTimer(this);
     connect(character_attack_timer, &QTimer::timeout, this, &MySence::checkCharacterDistance);
     character_attack_timer->start(500);
+
+    aimTimer = new QTimer(this);
+    connect(aimTimer, &QTimer::timeout, this, &MySence::getAimedChar);
+    aimTimer->start(10);
 }
 
 bool MySence::areItemsClose(QGraphicsItem *item1, QGraphicsItem *item2, float threshold)
@@ -120,8 +124,6 @@ void MySence::checkCharacterDistance()
         }
     }
 
-    qDebug() << characters.size();
-
     // 步骤2：创建已处理对象集合
     QSet<Character *> processed;
 
@@ -148,5 +150,43 @@ void MySence::checkCharacterDistance()
                 }
             }
         }
+    }
+}
+
+void MySence::getAimedChar()
+{
+    QList<QGraphicsItem *> allItems = this->items();
+
+    // 步骤1：提取所有 Character 对象
+    QList<Character *> characters;
+    for (QGraphicsItem *item : allItems) {
+        if (item->type() == Character::Type) {
+            if (Character *ch = dynamic_cast<Character *>(item)) {
+                characters.append(ch);
+            }
+        }
+    }
+
+    for (int i = 0; i < characters.size(); i++) {
+        Character *char1 = characters[i];
+        int min_dis_square = char1->get_aim_range() * char1->get_aim_range();
+        for (int j = 0; j < characters.size(); ++j) {
+            Character *char2 = characters[j];
+            if (char2 == char1) {
+                continue;
+            }
+
+            if (!char1->dead && !char2->dead
+                && return_char_distance_squre(char1, char2) < min_dis_square && char1 != char2) {
+                min_dis_square = return_char_distance_squre(char1, char2);
+                char1->aim_target = char2;
+                if (char1->aim_target) {
+                }
+            }
+        }
+        if (min_dis_square == char1->get_aim_range() * char1->get_aim_range()) {
+            char1->aim_target = nullptr;
+        }
+        aimTimer->start(10);
     }
 }
