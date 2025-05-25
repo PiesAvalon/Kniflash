@@ -1,4 +1,5 @@
 #include "mysence.h"
+#include "player.h"
 
 MySence::MySence()
 {
@@ -52,8 +53,13 @@ MySence::MySence()
     character_attack_timer->start(500);
 
     aimTimer = new QTimer(this);
-    connect(aimTimer, &QTimer::timeout, this, &MySence::getAimedChar);
-    aimTimer->start(10);
+    connect(aimTimer, &QTimer::timeout, this, [this]() {
+        this->getAimedChar();
+        resetAimLine();
+    });
+    aimTimer->start(16); // 约60fps的更新频率，减少闪烁
+
+    addItem(&aimline);
 }
 
 bool MySence::areItemsClose(QGraphicsItem *item1, QGraphicsItem *item2, float threshold)
@@ -188,5 +194,30 @@ void MySence::getAimedChar()
             char1->aim_target = nullptr;
         }
         aimTimer->start(10);
+    }
+}
+
+void MySence::resetAimLine()
+{
+    QList<QGraphicsItem *> allItems = this->items();
+    Player *player = nullptr;
+    for (QGraphicsItem *item : allItems) {
+        if (item->type() == Player::Type) {
+            if (Player *ch = dynamic_cast<Player *>(item)) {
+                player = ch;
+                break;
+            }
+        }
+    }
+
+    if (player) {
+        QPointF newStart = player->pos();
+        QPointF newEnd = player->aim_target ? player->aim_target->pos() : player->pos();
+        
+        // 只在位置真正改变时才更新
+        if (newStart != aimline.getStart() || newEnd != aimline.getEnd()) {
+            aimline.setStart(newStart);
+            aimline.setEnd(newEnd);
+        }
     }
 }

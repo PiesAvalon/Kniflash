@@ -4,6 +4,7 @@
 #include <QGraphicsScene>
 #include <QObject>
 #include <Qpainter>
+#include "aimline.h"
 #include "char.h"
 #include "prop.h"
 
@@ -14,6 +15,8 @@ class MySence : public QGraphicsScene
     QTimer* timer;
     QTimer* character_attack_timer;
     QTimer* aimTimer;
+
+    AimLine aimline;
 
 public:
     MySence();
@@ -30,6 +33,7 @@ private slots:
     void checkDistance();
     void checkCharacterDistance();
     void getAimedChar();
+    void resetAimLine();
 signals:
     void propPicked(Prop* p);
 };

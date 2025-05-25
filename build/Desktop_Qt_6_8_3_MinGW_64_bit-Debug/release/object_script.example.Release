@@ -1,3 +1,4 @@
+release/aimline.o
 release/bush.o
 release/char.o
 release/main.o
@@ -10,6 +11,7 @@ release/player.o
 release/prop.o
 release/propfactory.o
 release/qrc_src.o
+release/moc_aimline.o
 release/moc_char.o
 release/moc_mainwindow.o
 release/moc_mob.o

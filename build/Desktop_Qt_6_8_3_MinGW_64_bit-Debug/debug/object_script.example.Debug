@@ -1,3 +1,4 @@
+debug/aimline.o
 debug/bush.o
 debug/char.o
 debug/main.o
@@ -10,6 +11,7 @@ debug/player.o
 debug/prop.o
 debug/propfactory.o
 debug/qrc_src.o
+debug/moc_aimline.o
 debug/moc_char.o
 debug/moc_mainwindow.o
 debug/moc_mob.o

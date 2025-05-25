@@ -183,7 +183,6 @@ void Character::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
         QPixmap *knife = knifes[i];
         QPointF drawPos(-knife->width() / 2, -radius - knife->height() / 2);
 
-        // 绘制贴图（网页5、网页8）
         painter->drawPixmap(drawPos, *knife);
 
         painter->restore(); // 恢复坐标系状态
