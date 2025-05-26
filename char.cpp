@@ -2,6 +2,7 @@
 #include "prop.h"
 #define INIT_KNIFE_R 120
 #define ATTACK_COOLDOWN 500
+#include <memory>
 
 Character::Character(QGraphicsItem *parent)
 {
@@ -43,8 +44,16 @@ Character::Character(QGraphicsItem *parent)
                 if (ready_to_attack) {
                     if (knife_num && aim_target) {
                         be_hit();
-                        aim_target->be_hit();
+                        // aim_target->be_hit();
+
+                        QTimer *t = new QTimer();
+                        t->setSingleShot(true);
+                        t->start(150);
+                        // t->deleteLater();
+                        QObject::connect(t, &QTimer::timeout, aim_target, &Character::be_hit);
+
                         attack_cooldown->start(ATTACK_COOLDOWN);
+                        emit throw_knife_signal();
                         ready_to_attack = false;
                     }
                 }

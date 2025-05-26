@@ -36,6 +36,11 @@ int main(int argc, char *argv[])
         player->setFlag(QGraphicsItem::ItemIsFocusable);
         player->setFocus();
 
+        QObject::connect(player, // 直接使用对象指针，保持指针类型
+                         &Character::throw_knife_signal,
+                         &(scene->aimline),
+                         &AimLine::createKnifeAnimation);
+
         //添加mob
         // 创建存储Mob的容器
         QVector<Mob*> mobVec;

@@ -18,10 +18,6 @@ class MySence : public QGraphicsScene
     QTimer* character_attack_timer;
     QTimer* aimTimer;
 
-    AimLine aimline;
-
-    QVector<AimLine*> aimlines;
-
 public:
     MySence();
     bool areItemsClose(QGraphicsItem* item1, QGraphicsItem* item2, float threshold);
@@ -33,6 +29,10 @@ public:
         float dy = pos1.y() - pos2.y();
         return (dx * dx + dy * dy);
     }
+
+    AimLine aimline;
+
+    QVector<AimLine*> aimlines;
 private slots:
     void checkDistance();
     void checkCharacterDistance();

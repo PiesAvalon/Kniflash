@@ -6,6 +6,8 @@
 #include <QPainter>
 #include <QPen>
 
+#include <QPropertyAnimation>
+
 #define CENTERBIAS 80;
 
 class AimLine : public QGraphicsObject
@@ -26,6 +28,12 @@ public:
         m_pen.setColor(Qt::red);              // 可选：设置虚线颜色
         setZValue(9999999);                   // 设置更高的 Z 值
         setCacheMode(QGraphicsItem::NoCache); // 禁用缓存避免残影
+
+        QPixmap* pm = new QPixmap(":/figs/knife.jpg");
+        if (!pm->isNull()) {
+            *pm = pm->scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+            knife = pm;
+        }
     }
 
     // 设置起点和终点
@@ -108,6 +116,8 @@ public:
         }
         painter->setPen(glowPen);
         painter->drawPath(path);
+
+        // createKnifeAnimation(m_start, m_end);
     }
 
     // 方案3：重写shape()函数以获得更精确的碰撞检测
@@ -124,11 +134,95 @@ public:
     void set_end(QPoint end) { setEnd(end); }
 
     bool is_player = false;
+public slots:
+    // void createKnifeAnimation()
+    // {
+    //     auto start = m_start;
+    //     auto end = m_end;
+
+    //     QGraphicsPixmapItem* knifeItem = new QGraphicsPixmapItem(*knife);
+    //     knifeItem->setParentItem(this);
+    //     knifeItem->setVisible(true);
+    //     knifeItem->setZValue(this->zValue() + 1);
+
+    //     // 计算旋转角度（Qt6角度方向处理）
+    //     QLineF directionLine(start, end);
+    //     qreal angle = directionLine.angle();
+
+    //     // 调整图标方向和位置
+    //     knifeItem->setTransformOriginPoint(knifeItem->boundingRect().center());
+    //     knifeItem->setRotation(-angle + 90); // 调整角度偏移量以适应图标方向
+    //     knifeItem->setPos(start);
+
+    //     QVariantAnimation* moveAnim = new QVariantAnimation;
+    //     moveAnim->setDuration(300);
+    //     moveAnim->setStartValue(start);
+    //     moveAnim->setEndValue(end);
+    //     moveAnim->setEasingCurve(QEasingCurve::Linear);
+
+    //     // 连接动画值变化信号以更新位置
+    //     QObject::connect(moveAnim,
+    //                      &QVariantAnimation::valueChanged,
+    //                      [knifeItem](const QVariant& value) {
+    //                          knifeItem->setPos(value.toPointF());
+    //                      });
+
+    //     // 动画结束后自动删除动画对象
+    //     QObject::connect(moveAnim, &QVariantAnimation::finished, moveAnim, &QObject::deleteLater);
+
+    //     moveAnim->start();
+    // }
+    void createKnifeAnimation()
+    {
+        auto start = m_start;
+        auto end = m_end;
+        QGraphicsPixmapItem* knifeItem = new QGraphicsPixmapItem(*knife);
+        knifeItem->setParentItem(this);
+        knifeItem->setVisible(true);
+        knifeItem->setZValue(this->zValue() + 1);
+
+        // 计算旋转角度（Qt6角度方向处理）
+        QLineF directionLine(start, end);
+        qreal angle = directionLine.angle();
+
+        // 调整图标方向和位置
+        knifeItem->setTransformOriginPoint(knifeItem->boundingRect().center());
+        knifeItem->setRotation(-angle + 90); // 调整角度偏移量以适应图标方向
+        knifeItem->setPos(start);
+
+        QVariantAnimation* moveAnim = new QVariantAnimation;
+        moveAnim->setDuration(150);
+        moveAnim->setStartValue(start);
+        moveAnim->setEndValue(end);
+        moveAnim->setEasingCurve(QEasingCurve::Linear);
+
+        // 连接动画值变化信号以更新位置
+        QObject::connect(moveAnim,
+                         &QVariantAnimation::valueChanged,
+                         [knifeItem](const QVariant& value) {
+                             knifeItem->setPos(value.toPointF());
+                         });
+
+        // 动画结束后删除动画对象和刀图标
+        QObject::connect(moveAnim, &QVariantAnimation::finished, [moveAnim, knifeItem]() {
+            // 删除刀图标
+            if (knifeItem->scene()) {
+                // (knifeItem->scene())->removeItem(knifeItem);
+            }
+            delete knifeItem;
+
+            // 删除动画对象
+            moveAnim->deleteLater();
+        });
+
+        moveAnim->start();
+    }
 
 private:
     QPointF m_start = {0, 0}; // 起点
     QPointF m_end = {0, 0};   // 终点
     QPen m_pen;               // 画笔（控制虚线样式）
+    QPixmap* knife;
 };
 
 #endif // AIMLINE_H

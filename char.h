@@ -75,14 +75,6 @@ public:
 
     int get_near_attack_range() { return knife_r; }
 
-    void be_hit()
-    {
-        if (knife_num) {
-            pop_knife();
-        } else {
-            drop_health(20);
-        }
-    }
     bool dead = false;
 
     int get_aim_range() { return aim_range; }
@@ -139,6 +131,15 @@ private:
             add_heart();
         }
     }
+public slots:
+    void be_hit()
+    {
+        if (knife_num) {
+            pop_knife();
+        } else {
+            drop_health(20);
+        }
+    }
 
 protected:
     QSet<int> pressedKeys;
@@ -146,6 +147,7 @@ protected:
 signals:
     void position_changed();
     void Dead_signal();
+    void throw_knife_signal();
 };
 
 #endif // CHAR_H
