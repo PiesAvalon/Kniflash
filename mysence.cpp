@@ -211,13 +211,11 @@ void MySence::resetAimLine()
     }
 
     if (player) {
-        QPointF newStart = player->pos();
-        QPointF newEnd = player->aim_target ? player->aim_target->pos() : player->pos();
-        
-        // 只在位置真正改变时才更新
-        if (newStart != aimline.getStart() || newEnd != aimline.getEnd()) {
-            aimline.setStart(newStart);
-            aimline.setEnd(newEnd);
+        aimline.setStart(player->pos());
+        if (player->aim_target) {
+            aimline.setEnd(player->aim_target->pos());
+        } else {
+            aimline.setEnd(player->pos());
         }
     }
 }

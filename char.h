@@ -43,13 +43,6 @@ public:
         }
     }
 
-    // void mousePressEvent(QMouseEvent *event) override
-    // {
-    //     if (event->button() == Qt::LeftButton) {
-    //         qDebug() << "true";
-    //     }
-    // }
-
     void push_knife();
     void pop_knife();
     void add_health(int amount);
