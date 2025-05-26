@@ -103,6 +103,9 @@ public:
         // painter->drawPath(path);
         QPen glowPen = m_pen;
         glowPen.setWidth(8); // 更宽的发光效果
+        if (!is_player) {
+            glowPen.setColor(QColor(255, 255, 0, 30)); // 纯黄色，透明度30（很浅）
+        }
         painter->setPen(glowPen);
         painter->drawPath(path);
     }
@@ -119,6 +122,8 @@ public:
     void set_start(QPoint start) { setStart(start); }
 
     void set_end(QPoint end) { setEnd(end); }
+
+    bool is_player = false;
 
 private:
     QPointF m_start = {0, 0}; // 起点

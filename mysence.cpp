@@ -60,6 +60,12 @@ MySence::MySence()
     aimTimer->start(16); // 约60fps的更新频率，减少闪烁
 
     addItem(&aimline);
+    aimline.is_player = true;
+    for (int i = 0; i < AINUM; i++) {
+        auto new_aim = new AimLine();
+        aimlines.push_back(new_aim);
+        addItem(new_aim);
+    }
 }
 
 bool MySence::areItemsClose(QGraphicsItem *item1, QGraphicsItem *item2, float threshold)
@@ -216,6 +222,28 @@ void MySence::resetAimLine()
             aimline.setEnd(player->aim_target->pos());
         } else {
             aimline.setEnd(player->pos());
+        }
+    }
+
+    QVector<Character *> characters;
+
+    for (QGraphicsItem *item : allItems) {
+        // 使用 qgraphicsitem_cast 安全转换
+        Character *character = qgraphicsitem_cast<Character *>(item);
+        if (character) {
+            characters.append(character);
+        }
+    }
+
+    for (int i = 0; i < AINUM; i++) {
+        Character *c = characters[i];
+        if (c) {
+            aimlines[i]->setStart(c->pos());
+            if (c->aim_target) {
+                aimlines[i]->setEnd(c->aim_target->pos());
+            } else {
+                aimlines[i]->setEnd(c->pos());
+            }
         }
     }
 }

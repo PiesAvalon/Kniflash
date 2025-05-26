@@ -8,6 +8,8 @@
 #include "char.h"
 #include "prop.h"
 
+#define AINUM 5
+
 //这个要替换main中的scene
 class MySence : public QGraphicsScene
 {
@@ -17,6 +19,8 @@ class MySence : public QGraphicsScene
     QTimer* aimTimer;
 
     AimLine aimline;
+
+    QVector<AimLine*> aimlines;
 
 public:
     MySence();
