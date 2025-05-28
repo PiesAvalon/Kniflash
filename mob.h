@@ -16,9 +16,12 @@ public:
         emit moved_signal();
         shoot_timer.start(1000);
         connect(&shoot_timer, &QTimer::timeout, this, &Mob::handle_shoot);
+        connect(this, &Character::Dead_signal, this, &Mob::handle_mob_dead);
     }
 public slots:
     void handle_shoot() { shoot(); }
+
+    void handle_mob_dead() { shoot_timer.stop(); }
 
     void random_move()
     {

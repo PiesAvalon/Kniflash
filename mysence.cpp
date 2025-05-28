@@ -237,12 +237,14 @@ void MySence::resetAimLine()
 
     for (int i = 0; i < AINUM; i++) {
         Character *c = characters[i];
-        if (c) {
-            aimlines[i]->setStart(c->pos());
-            if (c->aim_target) {
-                aimlines[i]->setEnd(c->aim_target->pos());
-            } else {
-                aimlines[i]->setEnd(c->pos());
+        for (int j = 0; j < AINUM; j++) {
+            if (c->id == aimlines[j]->id && c) {
+                aimlines[j]->setStart(c->pos());
+                if (c->aim_target) {
+                    aimlines[j]->setEnd(c->aim_target->pos());
+                } else {
+                    aimlines[j]->setEnd(c->pos());
+                }
             }
         }
     }

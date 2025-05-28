@@ -2,6 +2,7 @@
 #include "prop.h"
 #define INIT_KNIFE_R 120
 
+#include <QRandomGenerator>
 #include <memory>
 
 Character::Character(QGraphicsItem *parent)
@@ -108,6 +109,7 @@ Character::Character(QGraphicsItem *parent)
         ready_to_attack = true;
         attack_cooldown->stop();
     });
+    id = QRandomGenerator::global()->bounded(1000000);
 }
 
 void Character::handle_give_knife_timer()

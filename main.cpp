@@ -69,6 +69,7 @@ int main(int argc, char *argv[])
                              &Character::throw_knife_signal,
                              scene->aimlines[i],
                              &AimLine::createKnifeAnimation);
+            scene->aimlines[i]->id = mob->id;
         }
 
         // 关闭滚动条

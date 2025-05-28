@@ -4,7 +4,6 @@ release/char.o
 release/main.o
 release/mainwindow.o
 release/mob.o
-release/mygraphicsview.o
 release/mysence.o
 release/myview.o
 release/player.o

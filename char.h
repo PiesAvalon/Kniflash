@@ -81,6 +81,7 @@ public:
     int get_aim_range() { return aim_range; }
     QVector<Character *> can_aim_targets;
     Character *aim_target;
+    int id;
 
 private:
     QMovie *movie;

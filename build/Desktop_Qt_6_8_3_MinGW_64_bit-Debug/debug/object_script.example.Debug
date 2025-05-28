@@ -4,7 +4,6 @@ debug/char.o
 debug/main.o
 debug/mainwindow.o
 debug/mob.o
-debug/mygraphicsview.o
 debug/mysence.o
 debug/myview.o
 debug/player.o

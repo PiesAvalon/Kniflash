@@ -15,6 +15,7 @@ class AimLine : public QGraphicsObject
     Q_OBJECT;
 
 public:
+    int id;
     explicit AimLine(const QPointF& start = QPointF(),
                      const QPointF& end = QPointF(),
                      QGraphicsItem* parent = nullptr)
