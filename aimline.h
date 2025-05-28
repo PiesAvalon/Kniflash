@@ -116,8 +116,6 @@ public:
         }
         painter->setPen(glowPen);
         painter->drawPath(path);
-
-        // createKnifeAnimation(m_start, m_end);
     }
 
     // 方案3：重写shape()函数以获得更精确的碰撞检测
@@ -135,43 +133,6 @@ public:
 
     bool is_player = false;
 public slots:
-    // void createKnifeAnimation()
-    // {
-    //     auto start = m_start;
-    //     auto end = m_end;
-
-    //     QGraphicsPixmapItem* knifeItem = new QGraphicsPixmapItem(*knife);
-    //     knifeItem->setParentItem(this);
-    //     knifeItem->setVisible(true);
-    //     knifeItem->setZValue(this->zValue() + 1);
-
-    //     // 计算旋转角度（Qt6角度方向处理）
-    //     QLineF directionLine(start, end);
-    //     qreal angle = directionLine.angle();
-
-    //     // 调整图标方向和位置
-    //     knifeItem->setTransformOriginPoint(knifeItem->boundingRect().center());
-    //     knifeItem->setRotation(-angle + 90); // 调整角度偏移量以适应图标方向
-    //     knifeItem->setPos(start);
-
-    //     QVariantAnimation* moveAnim = new QVariantAnimation;
-    //     moveAnim->setDuration(300);
-    //     moveAnim->setStartValue(start);
-    //     moveAnim->setEndValue(end);
-    //     moveAnim->setEasingCurve(QEasingCurve::Linear);
-
-    //     // 连接动画值变化信号以更新位置
-    //     QObject::connect(moveAnim,
-    //                      &QVariantAnimation::valueChanged,
-    //                      [knifeItem](const QVariant& value) {
-    //                          knifeItem->setPos(value.toPointF());
-    //                      });
-
-    //     // 动画结束后自动删除动画对象
-    //     QObject::connect(moveAnim, &QVariantAnimation::finished, moveAnim, &QObject::deleteLater);
-
-    //     moveAnim->start();
-    // }
     void createKnifeAnimation()
     {
         auto start = m_start;

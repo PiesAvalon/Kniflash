@@ -15,7 +15,6 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     mob.cpp \
-    mygraphicsview.cpp \
     mysence.cpp \
     myview.cpp \
     player.cpp \
@@ -28,7 +27,6 @@ HEADERS += \
     char.h \
     mainwindow.h \
     mob.h \
-    mygraphicsview.h \
     mysence.h \
     myview.h \
     player.h \

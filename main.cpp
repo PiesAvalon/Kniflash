@@ -64,6 +64,11 @@ int main(int argc, char *argv[])
             // 添加到场景和容器
             scene->addItem(mob);
             mobVec.push_back(mob);
+
+            QObject::connect(mob,
+                             &Character::throw_knife_signal,
+                             scene->aimlines[i],
+                             &AimLine::createKnifeAnimation);
         }
 
         // 关闭滚动条

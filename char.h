@@ -9,6 +9,7 @@
 #include <QMovie>
 #include <QTimer>
 #include "qpainter.h"
+#define ATTACK_COOLDOWN 500
 
 class Character : public QGraphicsObject
 {
@@ -143,6 +144,25 @@ public slots:
 
 protected:
     QSet<int> pressedKeys;
+    void shoot()
+    {
+        if (ready_to_attack) {
+            if (knife_num && aim_target) {
+                be_hit();
+                // aim_target->be_hit();
+
+                QTimer *t = new QTimer();
+                t->setSingleShot(true);
+                t->start(150);
+                // t->deleteLater();
+                QObject::connect(t, &QTimer::timeout, aim_target, &Character::be_hit);
+
+                attack_cooldown->start(ATTACK_COOLDOWN);
+                emit throw_knife_signal();
+                ready_to_attack = false;
+            }
+        }
+    }
 
 signals:
     void position_changed();
