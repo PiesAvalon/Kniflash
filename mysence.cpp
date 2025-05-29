@@ -66,6 +66,8 @@ MySence::MySence()
         aimlines.push_back(new_aim);
         addItem(new_aim);
     }
+
+    cur_ai_num = AINUM;
 }
 
 bool MySence::areItemsClose(QGraphicsItem *item1, QGraphicsItem *item2, float threshold)
@@ -75,6 +77,23 @@ bool MySence::areItemsClose(QGraphicsItem *item1, QGraphicsItem *item2, float th
     float dx = pos1.x() - pos2.x();
     float dy = pos1.y() - pos2.y();
     return (dx * dx + dy * dy) < (threshold * threshold);
+}
+
+int MySence::return_char_distance_squre(Character *c1, Character *c2)
+{
+    QPointF pos1 = c1->mapToScene(c1->boundingRect().center());
+    QPointF pos2 = c2->mapToScene(c2->boundingRect().center());
+    float dx = pos1.x() - pos2.x();
+    float dy = pos1.y() - pos2.y();
+    return (dx * dx + dy * dy);
+}
+
+void MySence::handle_mob_death()
+{
+    cur_ai_num--;
+    if (cur_ai_num == 0) {
+        emit player_win_signal();
+    }
 }
 
 void MySence::checkDistance()

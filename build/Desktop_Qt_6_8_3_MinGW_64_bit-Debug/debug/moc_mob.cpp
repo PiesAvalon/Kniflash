@@ -41,6 +41,7 @@ static constexpr auto qt_meta_stringdata_ZN3MobE = QtMocHelpers::stringData(
     "Mob",
     "moved_signal",
     "",
+    "mob_death_signal",
     "handle_shoot",
     "handle_mob_dead",
     "random_move"
@@ -55,22 +56,24 @@ Q_CONSTINIT static const uint qt_meta_data_ZN3MobE[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       1,       // signalCount
+       2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   38,    2, 0x06,    1 /* Public */,
+       1,    0,   44,    2, 0x06,    1 /* Public */,
+       3,    0,   45,    2, 0x06,    2 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       3,    0,   39,    2, 0x0a,    2 /* Public */,
-       4,    0,   40,    2, 0x0a,    3 /* Public */,
-       5,    0,   41,    2, 0x0a,    4 /* Public */,
+       4,    0,   46,    2, 0x0a,    3 /* Public */,
+       5,    0,   47,    2, 0x0a,    4 /* Public */,
+       6,    0,   48,    2, 0x0a,    5 /* Public */,
 
  // signals: parameters
+    QMetaType::Void,
     QMetaType::Void,
 
  // slots: parameters
@@ -92,6 +95,8 @@ Q_CONSTINIT const QMetaObject Mob::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<Mob, std::true_type>,
         // method 'moved_signal'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'mob_death_signal'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'handle_shoot'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'handle_mob_dead'
@@ -108,9 +113,10 @@ void Mob::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
         case 0: _t->moved_signal(); break;
-        case 1: _t->handle_shoot(); break;
-        case 2: _t->handle_mob_dead(); break;
-        case 3: _t->random_move(); break;
+        case 1: _t->mob_death_signal(); break;
+        case 2: _t->handle_shoot(); break;
+        case 3: _t->handle_mob_dead(); break;
+        case 4: _t->random_move(); break;
         default: ;
         }
     }
@@ -120,6 +126,13 @@ void Mob::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **
             using _q_method_type = void (Mob::*)();
             if (_q_method_type _q_method = &Mob::moved_signal; *reinterpret_cast<_q_method_type *>(_a[1]) == _q_method) {
                 *result = 0;
+                return;
+            }
+        }
+        {
+            using _q_method_type = void (Mob::*)();
+            if (_q_method_type _q_method = &Mob::mob_death_signal; *reinterpret_cast<_q_method_type *>(_a[1]) == _q_method) {
+                *result = 1;
                 return;
             }
         }
@@ -145,14 +158,14 @@ int Mob::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 4)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 5;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 4)
+        if (_id < 5)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 4;
+        _id -= 5;
     }
     return _id;
 }
@@ -161,5 +174,11 @@ int Mob::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 void Mob::moved_signal()
 {
     QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
+}
+
+// SIGNAL 1
+void Mob::mob_death_signal()
+{
+    QMetaObject::activate(this, &staticMetaObject, 1, nullptr);
 }
 QT_WARNING_POP

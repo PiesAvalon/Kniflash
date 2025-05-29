@@ -2,7 +2,6 @@ release/aimline.o
 release/bush.o
 release/char.o
 release/main.o
-release/mainwindow.o
 release/mob.o
 release/mysence.o
 release/myview.o
@@ -12,7 +11,6 @@ release/propfactory.o
 release/qrc_src.o
 release/moc_aimline.o
 release/moc_char.o
-release/moc_mainwindow.o
 release/moc_mob.o
 release/moc_mysence.o
 release/moc_prop.o

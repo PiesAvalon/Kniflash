@@ -13,7 +13,6 @@ SOURCES += \
     bush.cpp \
     char.cpp \
     main.cpp \
-    mainwindow.cpp \
     mob.cpp \
     mysence.cpp \
     myview.cpp \
@@ -25,7 +24,6 @@ HEADERS += \
     aimline.h \
     bush.h \
     char.h \
-    mainwindow.h \
     mob.h \
     mysence.h \
     myview.h \
@@ -33,8 +31,7 @@ HEADERS += \
     prop.h \
     propfactory.h
 
-FORMS += \
-    mainwindow.ui
+FORMS +=
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

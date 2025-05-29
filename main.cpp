@@ -3,7 +3,6 @@
 #include <QObject>
 #include <QRandomGenerator>
 #include "QMessageBox"
-#include "mainwindow.h"
 #include "mob.h"
 #include "mysence.h"
 #include "myview.h"
@@ -15,13 +14,23 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     while (true) {
-        MainWindow mw;
-        mw.show();
+        while (true) {
+            QMessageBox msgBox;
+            msgBox.setWindowTitle("游戏开始");
+            msgBox.setText("欢迎");
+            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+            msgBox.setButtonText(QMessageBox::Yes, "开始游戏");
+            msgBox.setButtonText(QMessageBox::No, "退出游戏");
 
-        QEventLoop loop;
-        QObject::connect(&mw, &MainWindow::evokeGameSignal, &loop, &QEventLoop::quit);
-        loop.exec();
+            msgBox.setWindowFlags(msgBox.windowFlags() & ~Qt::WindowCloseButtonHint);
 
+            int result = msgBox.exec();
+            if (result == QMessageBox::Yes) {
+                break;
+            } else if (result == QMessageBox::No) {
+                exit(0);
+            }
+        }
         // 初始化游戏场景
         MySence* scene = new MySence();
 
@@ -70,6 +79,7 @@ int main(int argc, char *argv[])
                              scene->aimlines[i],
                              &AimLine::createKnifeAnimation);
             scene->aimlines[i]->id = mob->id;
+            QObject::connect(mob, &Mob::mob_death_signal, scene, &MySence::handle_mob_death);
         }
 
         // 关闭滚动条
@@ -85,22 +95,40 @@ int main(int argc, char *argv[])
         view->show();
 
         QEventLoop loop2;
-        QObject::connect(player, &Character::Dead_signal, &loop2, &QEventLoop::quit);
+        bool win = false;
+        QObject::connect(scene, &MySence::player_win_signal, &loop2, [&]() {
+            win = true;
+            loop2.quit();
+        });
+        QObject::connect(player, &Character::Dead_signal, &loop2, [&]() { loop2.quit(); });
         loop2.exec();
 
-        int result = QMessageBox::question(nullptr,
-                                           "确认",
-                                           "确定要退出吗？",
-                                           QMessageBox::Yes | QMessageBox::No);
-        if (result == QMessageBox::Yes) {
-            exit(0);
-        } else {
-            view->hide();
-            continue;
-        }
-    }
+        int result;
 
-    // 运行应用, 并以应用的返回值作为整个程序的返回值
+        if (win) {
+            int killnum = 2;
+            int time = 10;
+            QString qs = QString("你赢了，排名：%1。击杀数量：%2。存活时间：%3")
+                             .arg(scene->cur_ai_num + 1)
+                             .arg(killnum)
+                             .arg(time);
+
+            result = QMessageBox::information(nullptr, "胜利", qs, "退回", "", "", 0, 1);
+        }
+
+        if (!win) {
+            int killnum = 2;
+            int time = 10;
+            QString qs = QString("你输了，排名：%1。击杀数量：%2。存活时间：%3")
+                             .arg(scene->cur_ai_num + 1)
+                             .arg(killnum)
+                             .arg(time);
+
+            int result = QMessageBox::question(nullptr, "失败", qs, "退回", "", "", 0, 1);
+        }
+
+        view->hide();
+    }
 
     app.exec();
     return 0;

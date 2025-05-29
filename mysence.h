@@ -21,18 +21,13 @@ class MySence : public QGraphicsScene
 public:
     MySence();
     bool areItemsClose(QGraphicsItem* item1, QGraphicsItem* item2, float threshold);
-    int return_char_distance_squre(Character* c1, Character* c2)
-    {
-        QPointF pos1 = c1->mapToScene(c1->boundingRect().center());
-        QPointF pos2 = c2->mapToScene(c2->boundingRect().center());
-        float dx = pos1.x() - pos2.x();
-        float dy = pos1.y() - pos2.y();
-        return (dx * dx + dy * dy);
-    }
+    int return_char_distance_squre(Character* c1, Character* c2);
 
     AimLine aimline;
-
     QVector<AimLine*> aimlines;
+
+    void handle_mob_death();
+    int cur_ai_num;
 private slots:
     void checkDistance();
     void checkCharacterDistance();
@@ -40,6 +35,7 @@ private slots:
     void resetAimLine();
 signals:
     void propPicked(Prop* p);
+    void player_win_signal();
 };
 
 #endif // MYSENCE_H

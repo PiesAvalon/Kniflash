@@ -7,6 +7,7 @@ class Mob : public Character
 {
     Q_OBJECT
     QTimer shoot_timer;
+    bool mob_is_dead = false;
 
 public:
     Mob()
@@ -25,6 +26,10 @@ public slots:
 
     void random_move()
     {
+        if (dead && !mob_is_dead) {
+            emit mob_death_signal();
+            mob_is_dead = true;
+        }
         if (dead)
             return;
         // 1. 随机选择 A/S/D/W 中的一个按键
@@ -63,6 +68,7 @@ public slots:
     }
 signals:
     void moved_signal();
+    void mob_death_signal();
 };
 
 #endif // MOB_H

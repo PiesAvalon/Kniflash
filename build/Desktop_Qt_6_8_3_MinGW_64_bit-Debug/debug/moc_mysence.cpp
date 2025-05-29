@@ -43,6 +43,7 @@ static constexpr auto qt_meta_stringdata_ZN7MySenceE = QtMocHelpers::stringData(
     "",
     "Prop*",
     "p",
+    "player_win_signal",
     "checkDistance",
     "checkCharacterDistance",
     "getAimedChar",
@@ -58,24 +59,26 @@ Q_CONSTINIT static const uint qt_meta_data_ZN7MySenceE[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       5,   14, // methods
+       6,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       1,       // signalCount
+       2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   44,    2, 0x06,    1 /* Public */,
+       1,    1,   50,    2, 0x06,    1 /* Public */,
+       5,    0,   53,    2, 0x06,    3 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       5,    0,   47,    2, 0x08,    3 /* Private */,
-       6,    0,   48,    2, 0x08,    4 /* Private */,
-       7,    0,   49,    2, 0x08,    5 /* Private */,
-       8,    0,   50,    2, 0x08,    6 /* Private */,
+       6,    0,   54,    2, 0x08,    4 /* Private */,
+       7,    0,   55,    2, 0x08,    5 /* Private */,
+       8,    0,   56,    2, 0x08,    6 /* Private */,
+       9,    0,   57,    2, 0x08,    7 /* Private */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
+    QMetaType::Void,
 
  // slots: parameters
     QMetaType::Void,
@@ -98,6 +101,8 @@ Q_CONSTINIT const QMetaObject MySence::staticMetaObject = { {
         // method 'propPicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<Prop *, std::false_type>,
+        // method 'player_win_signal'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'checkDistance'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'checkCharacterDistance'
@@ -116,10 +121,11 @@ void MySence::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
         case 0: _t->propPicked((*reinterpret_cast< std::add_pointer_t<Prop*>>(_a[1]))); break;
-        case 1: _t->checkDistance(); break;
-        case 2: _t->checkCharacterDistance(); break;
-        case 3: _t->getAimedChar(); break;
-        case 4: _t->resetAimLine(); break;
+        case 1: _t->player_win_signal(); break;
+        case 2: _t->checkDistance(); break;
+        case 3: _t->checkCharacterDistance(); break;
+        case 4: _t->getAimedChar(); break;
+        case 5: _t->resetAimLine(); break;
         default: ;
         }
     }
@@ -141,6 +147,13 @@ void MySence::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
             using _q_method_type = void (MySence::*)(Prop * );
             if (_q_method_type _q_method = &MySence::propPicked; *reinterpret_cast<_q_method_type *>(_a[1]) == _q_method) {
                 *result = 0;
+                return;
+            }
+        }
+        {
+            using _q_method_type = void (MySence::*)();
+            if (_q_method_type _q_method = &MySence::player_win_signal; *reinterpret_cast<_q_method_type *>(_a[1]) == _q_method) {
+                *result = 1;
                 return;
             }
         }
@@ -166,14 +179,14 @@ int MySence::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 6;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 6;
     }
     return _id;
 }
@@ -183,5 +196,11 @@ void MySence::propPicked(Prop * _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
+}
+
+// SIGNAL 1
+void MySence::player_win_signal()
+{
+    QMetaObject::activate(this, &staticMetaObject, 1, nullptr);
 }
 QT_WARNING_POP
