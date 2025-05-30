@@ -8,6 +8,7 @@
 #include "myview.h"
 #include "player.h"
 #include "propfactory.h"
+#include <memory>
 
 int main(int argc, char *argv[])
 {
@@ -35,7 +36,9 @@ int main(int argc, char *argv[])
         QElapsedTimer timer;
         timer.start();
 
-        MySence* scene = new MySence();
+        // MySence* scene = new MySence();
+        std::unique_ptr<MySence> scene_ptr = std::make_unique<MySence>();
+        auto scene = scene_ptr.get();
 
         MyView* view = new MyView();
         view->setScene(scene);
