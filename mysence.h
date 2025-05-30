@@ -26,8 +26,9 @@ public:
     AimLine aimline;
     QVector<AimLine*> aimlines;
 
-    void handle_mob_death();
+    void handle_mob_death(int id);
     int cur_ai_num;
+    int kill_num = 0;
 private slots:
     void checkDistance();
     void checkCharacterDistance();

@@ -27,7 +27,7 @@ public slots:
     void random_move()
     {
         if (dead && !mob_is_dead) {
-            emit mob_death_signal();
+            emit mob_death_signal(this->id);
             mob_is_dead = true;
         }
         if (dead)
@@ -68,7 +68,7 @@ public slots:
     }
 signals:
     void moved_signal();
-    void mob_death_signal();
+    void mob_death_signal(int id);
 };
 
 #endif // MOB_H

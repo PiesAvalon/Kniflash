@@ -55,13 +55,7 @@ public:
     enum { Type = UserType + 1 };
     int type() const override { return Type; }
 
-    void speed_finished()
-    {
-        if (high_speed) {
-            speed = speed / 2;
-        }
-        high_speed = false;
-    }
+    void speed_finished();
 
     void handle_give_knife_timer();
 

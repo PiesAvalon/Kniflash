@@ -308,3 +308,11 @@ void Character::handle_pick(int id)
         picked_boots();
     }
 }
+
+void Character::speed_finished()
+{
+    if (high_speed) {
+        speed = speed / 2;
+    }
+    high_speed = false;
+}

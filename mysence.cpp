@@ -88,14 +88,57 @@ int MySence::return_char_distance_squre(Character *c1, Character *c2)
     return (dx * dx + dy * dy);
 }
 
-void MySence::handle_mob_death()
+void MySence::handle_mob_death(int id)
 {
     cur_ai_num--;
+    QList<QGraphicsItem *> allItems = this->items();
+    // 分离出所有Character和Prop类对象
+    QList<QGraphicsItem *> characterItems;
+
+    // 筛选出所有Character对象
+    for (QGraphicsItem *item : allItems) {
+        Character *character = dynamic_cast<Character *>(item);
+        if (character != nullptr) {
+            characterItems.append(item);
+        }
+    }
+
+    // 找到id匹配的Character对象
+    Character *targetCharacter = nullptr;
+    for (QGraphicsItem *item : characterItems) {
+        Character *character = dynamic_cast<Character *>(item);
+        if (character && character->id == id) {
+            targetCharacter = character;
+            break;
+        }
+    }
+
+    // 如果找到了目标Character
+    if (targetCharacter != nullptr) {
+        QPointF targetPos = targetCharacter->pos();
+
+        // 检查500范围内是否有Player对象
+        for (QGraphicsItem *item : characterItems) {
+            Player *player = dynamic_cast<Player *>(item);
+            if (player != nullptr) {
+                QPointF playerPos = player->pos();
+
+                // 计算距离
+                float distance = sqrt(pow(targetPos.x() - playerPos.x(), 2)
+                                      + pow(targetPos.y() - playerPos.y(), 2));
+
+                // 如果距离在500以内
+                if (distance <= 500.0f) {
+                    this->kill_num++;
+                    break; // 找到一个Player就够了，跳出循环
+                }
+            }
+        }
+    }
     if (cur_ai_num == 0) {
         emit player_win_signal();
     }
 }
-
 void MySence::checkDistance()
 {
     // 获取场景中所有Item
