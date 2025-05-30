@@ -9,7 +9,7 @@
 #include <QMovie>
 #include <QTimer>
 #include "qpainter.h"
-#define ATTACK_COOLDOWN 500
+#define ATTACK_COOLDOWN 100
 
 class Character : public QGraphicsObject
 {
