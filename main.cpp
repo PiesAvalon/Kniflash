@@ -110,7 +110,7 @@ int main(int argc, char *argv[])
 
         if (win) {
             int killnum = 2;
-            int time = 10;
+            int time = timer.elapsed() / 1000;
             QString qs = QString("你赢了，排名：%1。击杀数量：%2。存活时间：%3秒")
                              .arg(scene->cur_ai_num + 1)
                              .arg(killnum)

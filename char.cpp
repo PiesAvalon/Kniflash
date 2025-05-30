@@ -270,13 +270,22 @@ void Character::add_health(int amount)
     }
 }
 
-
-
 void Character::drop_health(int amount)
 {
     health -= amount;
     if (health <= 0) {
         emit Dead_signal();
+        return;
+    }
+
+    if (health > 0) {
+        // 使用透明度创建闪烁效果，保持焦点
+        this->setOpacity(0.3); // 设置为半透明
+
+        // 200ms后恢复完全不透明
+        QTimer::singleShot(200, this, [this]() {
+            this->setOpacity(1.0); // 恢复完全不透明
+        });
     }
 }
 
