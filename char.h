@@ -55,6 +55,8 @@ public:
     enum { Type = UserType + 1 };
     int type() const override { return Type; }
 
+    bool is_mob = false;
+
     void speed_finished();
 
     void handle_give_knife_timer();
@@ -76,6 +78,7 @@ public:
     QVector<Character *> can_aim_targets;
     Character *aim_target;
     int id;
+    int health;
 
 private:
     QMovie *movie;
@@ -96,7 +99,6 @@ private:
     int speed = 3;
     bool high_speed = false;
 
-    int health;
     int knife_r;
 
     QPixmap dead_image;

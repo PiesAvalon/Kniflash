@@ -68,6 +68,10 @@ MySence::MySence()
     }
 
     cur_ai_num = AINUM;
+
+    cmt = new QTimer();
+    cmt->start(1000);
+    connect(cmt, &QTimer::timeout, this, &MySence::character_move);
 }
 
 bool MySence::areItemsClose(QGraphicsItem *item1, QGraphicsItem *item2, float threshold)

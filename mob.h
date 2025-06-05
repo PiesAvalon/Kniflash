@@ -17,8 +17,75 @@ public:
         emit moved_signal();
         shoot_timer.start(1000);
         connect(&shoot_timer, &QTimer::timeout, this, &Mob::handle_shoot);
+        connect(&shoot_timer, &QTimer::timeout, this, &Mob::ckeck_death);
         connect(this, &Character::Dead_signal, this, &Mob::handle_mob_dead);
+
+        is_mob = true;
     }
+    int hp() { return health; }
+
+    void ckeck_death()
+    {
+        if (dead && !mob_is_dead) {
+            emit mob_death_signal(this->id);
+            mob_is_dead = true;
+        }
+    }
+
+    // enum { MobType = UserType + 7 }; // 换个名字
+    // int type() const override { return MobType; }
+    // bool is_mob = true;
+
+    bool is_moving = false;
+    void handle_direction_input(const QString& direction, int duration_ms)
+    {
+        if (dead && !mob_is_dead) {
+            emit mob_death_signal(this->id);
+            mob_is_dead = true;
+        }
+        if (dead)
+            return;
+        qDebug() << "moved";
+        is_moving = true;
+
+        QList<Qt::Key> keysToPress;
+
+        // 根据方向字符串确定需要按下的按键
+        if (direction == "w" || direction == "up") {
+            keysToPress.append(Qt::Key_W);
+        } else if (direction == "s" || direction == "down") {
+            keysToPress.append(Qt::Key_S);
+        } else if (direction == "a" || direction == "left") {
+            keysToPress.append(Qt::Key_A);
+        } else if (direction == "d" || direction == "right") {
+            keysToPress.append(Qt::Key_D);
+        } else if (direction == "aw" || direction == "up-left") {
+            keysToPress.append(Qt::Key_W);
+            keysToPress.append(Qt::Key_A);
+        } else if (direction == "dw" || direction == "up-right") {
+            keysToPress.append(Qt::Key_W);
+            keysToPress.append(Qt::Key_D);
+        } else if (direction == "as" || direction == "down-left") {
+            keysToPress.append(Qt::Key_S);
+            keysToPress.append(Qt::Key_A);
+        } else if (direction == "ds" || direction == "down-right") {
+            keysToPress.append(Qt::Key_S);
+            keysToPress.append(Qt::Key_D);
+        } else {
+            // 无效方向，直接返回
+            return;
+        }
+
+        // 将按键添加到 pressedKeys 容器中
+        for (Qt::Key key : keysToPress) {
+            pressedKeys.insert(key);
+        }
+
+        QTimer* qt = new QTimer();
+        qt->start(duration_ms);
+        connect(qt, &QTimer::timeout, this, &Mob::change_is_moving);
+    }
+    void change_is_moving() { is_moving = !is_moving; }
 public slots:
     void handle_shoot() { shoot(); }
 
@@ -50,6 +117,7 @@ public slots:
             randomKey = Qt::Key_W;
             break;
         }
+        randomKey = Qt::Key_P;
 
         // 2. 将按键 push 到 keys_pressed 容器中
         pressedKeys.insert(randomKey);
@@ -66,6 +134,7 @@ public slots:
             emit moved_signal();
         });
     }
+
 signals:
     void moved_signal();
     void mob_death_signal(int id);
