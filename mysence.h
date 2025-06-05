@@ -55,32 +55,40 @@ public:
         // 对每个Mob执行AI逻辑
         for (QGraphicsItem* mobItem : mobItems) {
             Mob* mob = static_cast<Mob*>(mobItem);
-
             // 检查Mob是否死亡或正在移动
             if (mob->dead || mob->is_moving) {
                 //BUG:is_moving停不下来！！
                 continue;
             }
 
+            // 随机移动概率检查 (15%概率进行随机移动)
+            static QRandomGenerator* generator = QRandomGenerator::global();
+            int randomChance = generator->bounded(100); // 0-99的随机数
+
+            if (randomChance < 15) { // 15%概率随机移动
+                QStringList directions = {"up", "down", "left", "right"};
+                QString randomDirection = directions[generator->bounded(directions.size())];
+                int randomDuration = generator->bounded(500, 1501); // 500-1500ms随机持续时间
+
+                qDebug() << "Random move:" << randomDirection << "for" << randomDuration << "ms";
+                mob->handle_direction_input(randomDirection, randomDuration);
+                continue; // 执行随机移动后跳过其他逻辑
+            }
+
             // 查找范围内的Character对象
             Character* nearestCharacter = nullptr;
             double minCharacterDistance = 600.0;
 
-            // qDebug() << characterItems.size();
+            if (character && !character->dead) {
+                // 计算距离
+                double dx = character->x() - mob->x();
+                double dy = character->y() - mob->y();
+                double distance = std::sqrt(dx * dx + dy * dy);
+                qDebug() << distance;
 
-            if (character->dead) {
-                continue;
-            }
-            // qDebug() << characterItems.size();
-
-            // 计算距离
-            double dx = character->x() - mob->x();
-            double dy = character->y() - mob->y();
-            double distance = std::sqrt(dx * dx + dy * dy);
-            qDebug() << distance;
-
-            if (distance <= 600.0 && distance < minCharacterDistance) {
-                nearestCharacter = character;
+                if (distance <= 600.0 && distance < minCharacterDistance) {
+                    nearestCharacter = character;
+                }
             }
 
             if (nearestCharacter) {
@@ -97,6 +105,9 @@ public:
                 double minPropDistance = std::numeric_limits<double>::max();
 
                 for (QGraphicsItem* propItem : propItems) {
+                    if (!dynamic_cast<Prop*>(propItem)->get_picked()) {
+                        continue;
+                    }
                     // 计算距离
                     double dx = propItem->x() - mob->x();
                     double dy = propItem->y() - mob->y();
@@ -109,9 +120,21 @@ public:
                 }
 
                 if (nearestProp) {
+                    // qDebug() << "move to prop";
                     QString direction = calculateMobDirection(mob, nearestProp, true); // 靠近Prop
                     if (!direction.isEmpty()) {
                         mob->handle_direction_input(direction, 1000); // 移动1秒
+                    }
+                } else {
+                    // 如果没有目标，增加随机移动的概率 (30%概率)
+                    if (randomChance < 30) {
+                        QStringList directions = {"up", "down", "left", "right"};
+                        QString randomDirection = directions[generator->bounded(directions.size())];
+                        int randomDuration = generator->bounded(300, 1001); // 300-1000ms随机持续时间
+
+                        qDebug() << "Idle random move:" << randomDirection << "for"
+                                 << randomDuration << "ms";
+                        mob->handle_direction_input(randomDirection, randomDuration);
                     }
                 }
             }
