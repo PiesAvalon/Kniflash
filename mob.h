@@ -37,6 +37,7 @@ public:
     // bool is_mob = true;
 
     bool is_moving = false;
+
     void handle_direction_input(const QString& direction, int duration_ms)
     {
         if (dead && !mob_is_dead) {
@@ -45,9 +46,9 @@ public:
         }
         if (dead)
             return;
+
         qDebug() << "moved";
         is_moving = true;
-
         QList<Qt::Key> keysToPress;
 
         // 根据方向字符串确定需要按下的按键
@@ -81,9 +82,24 @@ public:
             pressedKeys.insert(key);
         }
 
-        QTimer* qt = new QTimer();
+        // 创建定时器并设置超时处理
+        QTimer* qt = new QTimer(this);
+        qt->setSingleShot(true); // 设置为单次触发
         qt->start(duration_ms);
-        connect(qt, &QTimer::timeout, this, &Mob::change_is_moving);
+
+        // 连接超时信号到 lambda 函数，处理移动状态和按键移除
+        connect(qt, &QTimer::timeout, this, [this, keysToPress, qt]() {
+            // 将 is_moving 设为 false
+            is_moving = false;
+
+            // 从 pressedKeys 中移除这次按下的按键
+            for (Qt::Key key : keysToPress) {
+                pressedKeys.remove(key);
+            }
+
+            // 删除定时器对象
+            qt->deleteLater();
+        });
     }
     void change_is_moving() { is_moving = !is_moving; }
 public slots:

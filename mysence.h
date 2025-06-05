@@ -35,7 +35,6 @@ public:
 
     void character_move()
     {
-        // qDebug() << "bad_move";
         QList<QGraphicsItem*> allItems = this->items();
         Character* character = nullptr;
         QList<QGraphicsItem*> propItems;
@@ -59,6 +58,7 @@ public:
 
             // 检查Mob是否死亡或正在移动
             if (mob->dead || mob->is_moving) {
+                //BUG:is_moving停不下来！！
                 continue;
             }
 
@@ -81,7 +81,6 @@ public:
 
             if (distance <= 600.0 && distance < minCharacterDistance) {
                 nearestCharacter = character;
-                minCharacterDistance = distance;
             }
 
             if (nearestCharacter) {
